@@ -10,7 +10,10 @@ th,td{padding:9px 8px;text-align:left;border-bottom:1px solid #262a36}
 th{background:#222634;color:#aaa;font-weight:600;position:sticky;top:0}
 td.c{color:#7aa2f7;font-size:12px} td.n{font-weight:600;color:#fff}
 td.num{text-align:right;font-family:Consolas,monospace}
-.card{background:#1a1d27;border-radius:12px;margin:14px 0;overflow:hidden;border:1px solid #262a36}
+.card{background:#1a1d27;border-radius:12px;overflow:hidden;border:1px solid #262a36}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;align-items:start}
+@media(max-width:1080px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid3{grid-template-columns:1fr}}
 .cardhead{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#222634,#1a1d27);flex-wrap:wrap}
 .cardhead .code{color:#7aa2f7;font-size:12px}
 .cardhead .nm{font-size:17px;font-weight:700;color:#fff}
@@ -257,6 +260,7 @@ td.num{text-align:right;font-family:Consolas,monospace}
 <div class="kv"><span>中报预约</span><b>2026-08-20</b></div></div>
 </div></div>
 <div class="sec-title">个股深度详情（点击 Tab 切换：打法 / 支撑压力 / 资金 / 技术 / 基本面 / 关联板块 / 评级 / 动态 / 股东 / 质押解禁 / 龙虎榜 / 业绩预告）</div>
+<div class="grid3">
 
 <div class="card" id="card-sz002475">
 <div class="cardhead">
@@ -1571,6 +1575,7 @@ td.num{text-align:right;font-family:Consolas,monospace}
 <div class="kv"><span>归母净利(本期/TTM)</span><b>237.40亿 / 469.13亿</b></div>
 <div class="kv"><span>基本EPS</span><b>1.2</b></div>
 <div class="kv"><span>毛利率(TTM)</span><b>7.2%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
 </div>
 
 <div class="sub" style="margin-top:24px">说明：主力强度=当日主力净额÷成交额×100%；行为分级基于主力方向。支撑/压力取自 BOLL 轨道、52周高低、涨跌停价。股东/质押/解禁来自 data_shareholder·data_risk；财报来自 data_finance；龙虎榜核对 2026-08-12 全市场清单；中报预约/业绩预告标签来自 data_disclosure·data_events（仅返回预约披露日，不提供预告利润区间，故不编造）。分析仅供参考，非投资建议。</div>
