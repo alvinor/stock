@@ -1,0 +1,1750 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>260813 杜鑫·19只全维度深度分析（分组Tab版）</title><style>
+:root{
+  --bg:#0a0d15; --bg2:#0e1320; --card:#141b29; --card2:#10151f;
+  --line:#23304a; --line2:#2c3a57; --txt:#e8edf6; --sub:#9aa6bd;
+  --blue:#7dd3fc; --violet:#a78bfa; --pink:#f0abfc;
+  --up:#ff5a5f; --dn:#22d3a6; --warn:#f6b73c; --gold:#e9c46a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(56,189,248,.10), transparent 60%),
+    radial-gradient(900px 480px at -5% 0%, rgba(129,140,248,.10), transparent 55%),
+    radial-gradient(700px 400px at 50% 120%, rgba(240,171,252,.05), transparent 60%),
+    var(--bg);
+  color:var(--txt); padding:26px 22px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1200px;margin:0 auto}
+h1{
+  font-size:25px; font-weight:800; letter-spacing:.3px; margin-bottom:6px; line-height:1.25;
+  background:linear-gradient(92deg,#7dd3fc,#a78bfa 58%,#f0abfc);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.sub{color:var(--sub);font-size:12.5px;margin-bottom:22px;line-height:1.75}
+.sub b{color:#cdd6e8}
+
+/* 涨跌色（A股：红涨绿跌） */
+.up{color:var(--up)!important;font-weight:600}
+.dn,.down{color:var(--dn)!important;font-weight:600}
+.flat{color:#9aa6bd!important}
+
+/* 章节标题 */
+.sec,.sec-title{
+  font-size:16.5px;font-weight:700;color:#fff;margin:30px 0 12px;padding-left:12px;
+  border-left:4px solid transparent;
+  border-image:linear-gradient(180deg,#38bdf8,#818cf8) 1;
+  letter-spacing:.3px;
+}
+.foot{margin-top:26px;font-size:11.5px;color:#6b7790;line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
+
+/* 通用卡片 / 盒子 */
+.card,.box{
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 6px 22px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.03);
+  padding:14px 16px;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.box:hover{border-color:var(--line2);box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* KPI 盒 */
+.box h2{font-size:14px;margin:0 0 8px;color:var(--blue);font-weight:700;letter-spacing:.4px}
+.kpi{font-size:27px;font-weight:800;line-height:1.1;letter-spacing:.5px}
+.kpi.up{color:var(--up)} .kpi.down{color:var(--dn)}
+.note{font-size:12.5px;color:#b9c3d6;line-height:1.7;background:rgba(255,255,255,.025);
+  border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:0 9px 9px 0;padding:10px 13px;margin-top:8px}
+
+/* 标签 / 主题胶囊 */
+.tag{display:inline-block;background:linear-gradient(180deg,#1d2738,#161d2b);color:#a9c7ff;
+  padding:4px 11px;border-radius:20px;font-size:12px;margin:3px 4px 3px 0;border:1px solid #243049}
+.themes{line-height:2.2}
+.tags{margin:4px 0}
+
+/* 表格 */
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;
+  background:linear-gradient(180deg,#121826,#0f141f);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
+th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#aab6cc;font-weight:700;
+  text-align:left;padding:11px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;font-size:12.5px;letter-spacing:.3px}
+td{padding:10px;border-bottom:1px solid #1a2233;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+tbody tr:hover td{background:rgba(56,189,248,.07)}
+td.c{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+td.n{font-weight:700;color:#fff}
+td.num{text-align:right;font-family:'JetBrains Mono',Consolas,monospace;white-space:nowrap}
+.code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 个股大卡（Tab版） */
+.card{overflow:hidden;padding:0}
+.cardhead{display:flex;align-items:center;gap:12px;padding:15px 18px;flex-wrap:wrap;
+  background:linear-gradient(90deg,#1b2436,#141b29);border-bottom:1px solid var(--line)}
+.cardhead .code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.cardhead .nm{font-size:18px;font-weight:800;color:#fff;letter-spacing:.4px}
+.cardhead .px{font-size:16px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.cardhead .str{font-size:12.5px;font-weight:700;background:rgba(56,189,248,.12);
+  color:#9fe0ff;padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.tabs{display:flex;flex-wrap:wrap;gap:5px;padding:11px 12px 0;background:#0f1521;
+  border-bottom:1px solid var(--line)}
+.tab{background:#18202f;color:#9aa6bd;border:1px solid #222c40;border-bottom:none;
+  padding:8px 15px;border-radius:9px 9px 0 0;cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .15s ease}
+.tab:hover{color:#dbe4f3;background:#1d2738}
+.tab.active{background:linear-gradient(180deg,#2563eb,#3b5bdb);color:#fff;border-color:#3b5bdb;
+  box-shadow:0 -2px 12px rgba(59,91,219,.35)}
+.tabcontent{padding:18px 16px;background:#0f1521;animation:fade .25s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* 键值行 */
+.kv{display:flex;justify-content:space-between;gap:18px;padding:8px 0;
+  border-bottom:1px dashed #212c40;font-size:13.5px}
+.kv:last-child{border-bottom:none}
+.kv span{color:#8f9bb4;flex:0 0 auto}
+.kv b{color:#e8edf6;text-align:right;max-width:64%;font-weight:600;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px}
+.kv b.up,.kv b.dn{font-family:inherit}
+
+/* 支撑/压力 */
+.srblock{display:inline-block;vertical-align:top;width:48%;margin-right:2%}
+.srlabel{font-weight:800;margin-bottom:8px;font-size:14px;letter-spacing:.5px}
+.srlabel[style*="27ae60"],.srlabel.up{color:var(--dn)}
+.srlabel[style*="e74c3c"]{color:var(--up)}
+
+/* 新闻 */
+.news{padding:10px 0;border-bottom:1px dashed #212c40}
+.news:last-child{border-bottom:none}
+.nt{font-size:13.5px;color:#dde4f0;line-height:1.6}
+.nm{font-size:11px;color:#69748c;margin-top:3px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 打法结论 */
+.playact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:7px 18px;border-radius:9px;font-size:15px;margin-bottom:12px;
+  box-shadow:0 4px 14px rgba(239,68,68,.3)}
+.playstr{font-size:14px;line-height:1.75;color:#d2dae8;margin-bottom:12px}
+.note{border-left:3px solid var(--warn)}
+
+/* 深度挖掘卡 */
+.ddcard{background:linear-gradient(135deg,#1a2233,#10151f);border:1px solid #2a3a57;
+  border-radius:14px;margin:14px 0;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+.ddhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid #243049}
+.ddnm{font-size:19px;font-weight:800;color:#fff}
+.ddcode{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.ddstr{font-size:13px;font-weight:700;background:rgba(56,189,248,.12);color:#9fe0ff;
+  padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.ddpx{font-size:15px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.ddbody{display:flex;gap:20px;flex-wrap:wrap}
+.ddcol{flex:1;min-width:230px}
+.ddt{font-weight:800;color:var(--blue);margin-bottom:10px;font-size:13px;letter-spacing:.4px}
+.ddact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:6px 16px;border-radius:9px;font-size:14px;margin-bottom:10px}
+.dds{font-size:13px;line-height:1.7;color:#d2dae8}
+
+/* 三栏网格 */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px;align-items:start}
+@media(max-width:1080px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid3{grid-template-columns:1fr}}
+
+/* 买入建议：Tier 徽章与列 */
+.tier{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:800;color:#0a0d15}
+.tier[style*="3fb950"],.tier.core{background:#3fb950}
+.tier[style*="d29922"],.tier.evt{background:#d29922}
+.tier[style*="f85149"],.tier.avoid{background:#f85149}
+.buy{color:var(--dn)!important;font-weight:800}
+.stop{color:var(--up)!important;font-weight:700}
+.tgt{color:var(--gold)!important;font-weight:700}
+.logic{color:#cfd8e6;line-height:1.55}
+.logic hr{border:none;border-top:1px dashed #2a3a57;margin:7px 0}
+.risk{color:var(--warn);font-size:12px;line-height:1.6}
+
+/* 卖出建议专用 */
+.banner{background:linear-gradient(180deg,rgba(239,68,68,.14),rgba(239,68,68,.07));
+  border:1px solid #7a2b2b;border-radius:12px;padding:14px 16px;margin:16px 0;
+  font-size:13px;line-height:1.8;color:#ffc9c9}
+.banner b{color:#ff8585;font-weight:800}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;margin-bottom:8px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tbl th,.tbl td{border:1px solid #1c2433;padding:9px 9px;text-align:left;vertical-align:top}
+.tbl th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#cdd6e8;font-weight:700}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tag{font-weight:700}
+.t-sell{background:rgba(239,68,68,.22);color:#ff9b9b;border:1px solid #5a2a2a}
+.t-cut{background:rgba(246,183,60,.18);color:#ffd98b;border:1px solid #5a4a1f}
+.t-hold{background:rgba(34,211,166,.16);color:#8be0c4;border:1px solid #1f4a3a}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+.card h3{margin:0 0 7px;font-size:15px;color:#fff;font-weight:800;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card .px{font-size:20px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace}
+.card .why{font-size:12.5px;color:#c2cbd9;line-height:1.65;margin-top:7px}
+.card .why b{color:#fff}
+.act{display:inline-block;margin-top:9px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800;
+  background:rgba(239,68,68,.2);color:#ffb4b4;border:1px solid #5a2a2a}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<div class="topbar"><a class="back" href="index.html">← 返回主页</a><span class="bt">📊 杜鑫·19只个股全维度深度分析（分组Tab版）</span><span class="bs">数据截至 2026-08-13 收盘 · 涨红跌绿 · 持仓11 + 关注8</span></div>
+<div class="sub">主力强度=当日主力净额÷成交额×100%；行为分级基于主力方向。支撑/压力取自 BOLL 轨道、52周高低、涨跌停价。分析仅供参考，非投资建议。</div>
+<div class="sec-title">持仓（11只）（按主力强度排序）</div>
+<table><thead><tr><th>代码</th><th>名称</th><th>当日</th><th>主力强度</th><th>总市值</th><th>PE</th><th>PB</th><th>20日</th><th>行为</th><th>操作</th></tr></thead>
+<tbody><tr>
+<td class="c">sh601126</td><td class="n">四方股份</td>
+<td class="num up">+2.85%</td>
+<td class="num up">+7.75%</td>
+<td class="num">393.4亿</td>
+<td class="num">45.8</td>
+<td class="num">8.61</td>
+<td class="num">+1.4%</td>
+<td style="color:#e74c3c">抢筹/建仓</td>
+<td>持有/逢回踩关注</td></tr><tr>
+<td class="c">sz002290</td><td class="n">禾盛新材</td>
+<td class="num dn">-0.24%</td>
+<td class="num up">+7.28%</td>
+<td class="num">154.3亿</td>
+<td class="num">76.2</td>
+<td class="num">14.67</td>
+<td class="num">-7.6%</td>
+<td style="color:#e74c3c">抢筹/建仓</td>
+<td>持有/逢回踩关注</td></tr><tr>
+<td class="c">sh601138</td><td class="n">工业富联</td>
+<td class="num dn">-0.44%</td>
+<td class="num up">+2.23%</td>
+<td class="num">1.30万亿</td>
+<td class="num">27.6</td>
+<td class="num">7.37</td>
+<td class="num">+4.7%</td>
+<td style="color:#f39c12">平衡/试探</td>
+<td>持有/观望</td></tr><tr>
+<td class="c">sz002156</td><td class="n">通富微电</td>
+<td class="num dn">-0.67%</td>
+<td class="num up">+1.36%</td>
+<td class="num">947.6亿</td>
+<td class="num">65.5</td>
+<td class="num">6.10</td>
+<td class="num">-17.8%</td>
+<td style="color:#f39c12">平衡/试探</td>
+<td>持有/观望</td></tr><tr>
+<td class="c">sh688825</td><td class="n">长鑫科技</td>
+<td class="num dn">-1.33%</td>
+<td class="num dn">-1.11%</td>
+<td class="num">3.53万亿</td>
+<td class="num">125.3</td>
+<td class="num">25.34</td>
+<td class="num">+509.8%</td>
+<td style="color:#e67e22">流出/派发</td>
+<td>观望/轻仓</td></tr><tr>
+<td class="c">sh688012</td><td class="n">中微公司</td>
+<td class="num dn">-2.57%</td>
+<td class="num dn">-2.94%</td>
+<td class="num">3555.0亿</td>
+<td class="num">130.3</td>
+<td class="num">12.89</td>
+<td class="num">+2.7%</td>
+<td style="color:#e67e22">流出/派发</td>
+<td>观望/轻仓</td></tr><tr>
+<td class="c">sz002475</td><td class="n">立讯精密</td>
+<td class="num dn">-2.14%</td>
+<td class="num dn">-12.00%</td>
+<td class="num">4342.5亿</td>
+<td class="num">25.2</td>
+<td class="num">4.97</td>
+<td class="num">-8.7%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sh603336</td><td class="n">宏辉果蔬</td>
+<td class="num dn">-3.67%</td>
+<td class="num dn">-12.11%</td>
+<td class="num">59.1亿</td>
+<td class="num">362.2</td>
+<td class="num">4.12</td>
+<td class="num">+14.8%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sh600961</td><td class="n">株冶集团</td>
+<td class="num dn">-3.34%</td>
+<td class="num dn">-14.55%</td>
+<td class="num">303.8亿</td>
+<td class="num">15.2</td>
+<td class="num">6.01</td>
+<td class="num">+19.6%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sh601958</td><td class="n">金钼股份</td>
+<td class="num dn">-2.82%</td>
+<td class="num dn">-14.99%</td>
+<td class="num">724.0亿</td>
+<td class="num">20.6</td>
+<td class="num">3.50</td>
+<td class="num">+7.9%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sz000751</td><td class="n">锌业股份</td>
+<td class="num dn">-3.27%</td>
+<td class="num dn">-20.35%</td>
+<td class="num">81.3亿</td>
+<td class="num">71.7</td>
+<td class="num">2.21</td>
+<td class="num">+12.0%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr></tbody></table>
+<div class="grid3">
+<div class="card" id="card-sh601126">
+<div class="cardhead">
+<span class="code">sh601126</span><span class="nm">四方股份</span>
+<span class="px up">47.22 +2.85%</span>
+<span class="str up">主力强度 +7.75%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh601126','play')">打法</button>
+<button class="tab" onclick="switchTab('sh601126','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh601126','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh601126','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh601126','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh601126','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh601126','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh601126','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh601126','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh601126','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh601126','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh601126','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh601126"><div class="playact">持有/逢回踩关注</div>
+<div class="playstr">主力连续净流入、量价配合，趋势向上，可持有；回踩不破中轨可加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e74c3c">抢筹/建仓</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/逢回踩关注</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日涨2.85%，主力净流入1.49亿（强度+7.75%），抢筹/建仓。20日主力仍净流出0.4亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sh601126" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>42.96</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>37.19</b></div>
+<div class="kv"><span>52周最低</span><b>15.61</b></div>
+<div class="kv"><span>跌停价</span><b>41.32</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>48.73</b></div>
+<div class="kv"><span>52周最高</span><b>88.16</b></div>
+<div class="kv"><span>涨停价</span><b>50.50</b></div></div></div>
+<div class="tabcontent" id="fund-sh601126" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+1.49亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+7.75%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+1.39亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+2.90亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-0.38亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+1.03亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+0.15亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-1.64亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>7.81亿 / 6.32亿</b></div></div>
+<div class="tabcontent" id="tech-sh601126" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>75.6 / 71.4 / 83.9</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-2.38 / -3.90</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">3.04</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>88.3 / 68.2 / 52.1 / 45.9</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>48.73 / 42.96 / 37.19</b></div></div>
+<div class="tabcontent" id="fundam-sh601126" style="display:none"><div class="kv"><span>所属行业</span><b>电力设备 / 电力设备</b></div>
+<div class="kv"><span>主营</span><b>继电保护、电网自动化及发电厂自动化产品的研发、生产、销售和技术服务。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>45.8 / 36.3</b></div>
+<div class="kv"><span>PB</span><b>8.61</b></div>
+<div class="kv"><span>总/流通市值</span><b>393.4亿 / 389.6亿</b></div>
+<div class="kv"><span>52周区间</span><b>15.61 ~ 88.16</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+60.8%</b></div>
+<div class="kv"><span>董事长</span><b>高秀环</b></div>
+<div class="kv"><span>上市日期</span><b>2010-12-31</b></div></div>
+<div class="tabcontent" id="theme-sh601126" style="display:none"><div class="themes"><span class="tag">电力设备</span><span class="tag">继电保护</span><span class="tag">电网自动化</span><span class="tag">光伏/风电(海外)</span><span class="tag">新型电力系统</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>继电保护、电网自动化及发电厂自动化产品的研发、生产、销售和技术服务。</b></div></div>
+<div class="tabcontent" id="rating-sh601126" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>增持</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>中性</b></div></div>
+<div class="tabcontent" id="news-sh601126" style="display:none"><div class="news"><div class="nt">四方股份主力资金净流入1316.4万 短期情绪回暖叠加低拥挤轮动</div><div class="nm">2026-08-12 15:24</div></div><div class="news"><div class="nt">四方股份：中标山西电建总部采购项目，中标金额135万元</div><div class="nm">2026-08-12 10:02</div></div><div class="news"><div class="nt">四方股份8月11日被融资净卖出3074万元</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">四方股份中标赞比亚伊鲁特光伏项目 提升海外竞争力</div><div class="nm">2026-08-11 18:07</div></div><div class="news"><div class="nt">四方股份中标17.30万元中广核风电项目</div><div class="nm">2026-08-11 18:07</div></div></div>
+<div class="tabcontent" id="holder-sh601126" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>四方电气(集团)股份有限公司 · 持股39.07%</b></div><div class="kv"><span>第1大股东</span><b>四方电气(集团)股份有限公司 · 持股39.07% · 3.26亿股</b></div><div class="kv"><span>第2大股东</span><b>北京华科恒基数智科技 · 持股4.58% · 3820万股</b></div><div class="kv"><span>第3大股东</span><b>香港中央结算有限公司 · 持股2.04% · 1700万股</b></div></div>
+<div class="tabcontent" id="pledge-sh601126" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>解禁</span><b>核心技术(业务)骨干(64+431人) · 556万股 · 2025-09-19/11-07已解禁</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">已生效重大违规处罚一月内</span></div><div class="note" style="border-color:#e74c3c;color:#ffb3ab;background:rgba(231,76,60,0.12)">⚠️ 事件标签含「重大违规处罚」，需重点关注监管风险与信披影响。</div></div>
+<div class="tabcontent" id="lhb-sh601126" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh601126" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>21.58亿 / 85.2亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>2.71亿 / 8.58亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.33</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>30.2%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz002290">
+<div class="cardhead">
+<span class="code">sz002290</span><span class="nm">禾盛新材</span>
+<span class="px dn">62.21 -0.24%</span>
+<span class="str up">主力强度 +7.28%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz002290','play')">打法</button>
+<button class="tab" onclick="switchTab('sz002290','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz002290','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz002290','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz002290','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz002290','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz002290','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz002290','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz002290','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz002290','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz002290','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz002290','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz002290"><div class="playact">持有/逢回踩关注</div>
+<div class="playstr">主力连续净流入、量价配合，趋势向上，可持有；回踩不破中轨可加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e74c3c">抢筹/建仓</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/逢回踩关注</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌0.24%，主力净流入0.34亿（强度+7.28%），抢筹/建仓。20日主力仍净流出0.9亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sz002290" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>56.72</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>49.01</b></div>
+<div class="kv"><span>52周最低</span><b>29.24</b></div>
+<div class="kv"><span>跌停价</span><b>56.12</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>64.42</b></div>
+<div class="kv"><span>52周最高</span><b>108.70</b></div>
+<div class="kv"><span>涨停价</span><b>68.60</b></div></div></div>
+<div class="tabcontent" id="fund-sz002290" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+0.34亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+7.28%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+1.49亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+1.25亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-0.89亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+0.22亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+0.04亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-0.38亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>1.90亿 / 1.56亿</b></div></div>
+<div class="tabcontent" id="tech-sz002290" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>80.2 / 72.5 / 95.5</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-3.57 / -5.53</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">3.93</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>78.2 / 65.8 / 50.8 / 45.5</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>64.42 / 56.72 / 49.01</b></div></div>
+<div class="tabcontent" id="fundam-sz002290" style="display:none"><div class="kv"><span>所属行业</span><b>家用电器 / 家用电器</b></div>
+<div class="kv"><span>主营</span><b>家电外观复合材料PCM和VCM的产品开发，家电复合材料升级改良产品数字印刷PCM产品。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>76.2 / 56.7</b></div>
+<div class="kv"><span>PB</span><b>14.67</b></div>
+<div class="kv"><span>总/流通市值</span><b>154.3亿 / 153.9亿</b></div>
+<div class="kv"><span>52周区间</span><b>29.24 ~ 108.70</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+36.8%</b></div>
+<div class="kv"><span>董事长</span><b>梁旭</b></div>
+<div class="kv"><span>上市日期</span><b>2009-09-03</b></div></div>
+<div class="tabcontent" id="theme-sz002290" style="display:none"><div class="themes"><span class="tag">家用电器</span><span class="tag">家电复合材料PCM/VCM</span><span class="tag">数字印刷</span><span class="tag">半年报高增</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>家电外观复合材料PCM和VCM的产品开发，家电复合材料升级改良产品数字印刷PCM产品。</b></div></div>
+<div class="tabcontent" id="rating-sz002290" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz002290" style="display:none"><div class="news"><div class="nt">禾盛新材主力资金净流入3639万 短期上行趋势待风格切换持续验证</div><div class="nm">2026-08-12 15:28</div></div><div class="news"><div class="nt">禾盛新材涨5.03% 半年报净利润增40%持续发力</div><div class="nm">2026-08-12 09:49</div></div><div class="news"><div class="nt">禾盛新材8月11日获融资净买入354万元</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">禾盛新材主力资金净流入1269.5万 短期资金试探布局待景气验证</div><div class="nm">2026-08-11 15:19</div></div><div class="news"><div class="nt">禾盛新材8月10日获融资净买入1200万元</div><div class="nm">2026-08-11 09:30</div></div></div>
+<div class="tabcontent" id="holder-sz002290" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>上海摩尔智芯信息科技合伙企业 · 持股18.00%</b></div><div class="kv"><span>第1大股东</span><b>上海摩尔智芯信息科技合伙企业 · 持股18.00% · 4466万股</b></div><div class="kv"><span>第2大股东</span><b>卢大光 · 持股12.73% · 3158万股</b></div><div class="kv"><span>第3大股东</span><b>赵东明 · 持股11.56% · 2867万股</b></div></div>
+<div class="tabcontent" id="pledge-sz002290" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">13.70%</b></div><div class="kv"><span>质押笔数</span><b>2笔</b></div><div class="kv"><span>质押总量</span><b>3400万股</b></div><div class="note" style="border-color:#e67e22;color:#ffd0a8;background:rgba(230,126,34,0.1)">⚠️ 质押比例≥10%，关注平仓线与控股股东资金链风险；高质押常伴随减持/冻结隐患。</div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月内有董监高变动</span></div></div>
+<div class="tabcontent" id="lhb-sz002290" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz002290" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-06-30（披露 2026-07-29）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>12.45亿 / 25.9亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>1.36亿 / 2.03亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.55</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>14.7%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh601138">
+<div class="cardhead">
+<span class="code">sh601138</span><span class="nm">工业富联</span>
+<span class="px dn">65.31 -0.44%</span>
+<span class="str up">主力强度 +2.23%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh601138','play')">打法</button>
+<button class="tab" onclick="switchTab('sh601138','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh601138','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh601138','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh601138','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh601138','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh601138','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh601138','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh601138','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh601138','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh601138','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh601138','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh601138"><div class="playact">持有/观望</div>
+<div class="playstr">主力小幅流入或平衡，方向待确认，轻仓持有、暂不加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#f39c12">平衡/试探</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/观望</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌0.44%，主力净流入2.12亿（强度+2.23%），平衡/试探。20日主力仍净流出6.2亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sh601138" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>61.20</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>51.72</b></div>
+<div class="kv"><span>52周最低</span><b>40.68</b></div>
+<div class="kv"><span>跌停价</span><b>59.04</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>70.67</b></div>
+<div class="kv"><span>52周最高</span><b>84.30</b></div>
+<div class="kv"><span>涨停价</span><b>72.16</b></div></div></div>
+<div class="tabcontent" id="fund-sh601138" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+2.12亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+2.23%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-16.61亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+29.43亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-6.24亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+1.78亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-1.23亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-0.88亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>41.67亿 / 39.55亿</b></div></div>
+<div class="tabcontent" id="tech-sh601138" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>71.8 / 72.5 / 70.4</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.51 / -0.61</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">2.24</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>20.4 / 55.7 / 53.8 / 51.0</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>70.67 / 61.20 / 51.72</b></div></div>
+<div class="tabcontent" id="fundam-sh601138" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>各类电子设备产品的设计、研发、制造与销售，依托工业互联网为全球知名客户提供智能制造和科技服务解决方案。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>27.6 / 27.3</b></div>
+<div class="kv"><span>PB</span><b>7.37</b></div>
+<div class="kv"><span>总/流通市值</span><b>1.30万亿 / 1.30万亿</b></div>
+<div class="kv"><span>52周区间</span><b>40.68 ~ 84.30</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+6.9%</b></div>
+<div class="kv"><span>董事长</span><b>郑弘孟</b></div>
+<div class="kv"><span>上市日期</span><b>2018-06-08</b></div></div>
+<div class="tabcontent" id="theme-sh601138" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">AI服务器</span><span class="tag">工业互联网</span><span class="tag">算力代工</span><span class="tag">苹果产业链</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>各类电子设备产品的设计、研发、制造与销售，依托工业互联网为全球知名客户提供智能制造和科技服务解决方案。</b></div></div>
+<div class="tabcontent" id="rating-sh601138" style="display:none"><div class="kv"><span>机构评级家数</span><b>2</b></div>
+<div class="kv"><span>评级分布</span><b>买入增持</b></div>
+<div class="kv"><span>预测机构数</span><b>2</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh601138" style="display:none"><div class="news"><div class="nt">国产算力五大核心赛道全解析</div><div class="nm">2026-08-12 23:00</div></div><div class="news"><div class="nt">万亿空间打开！马斯克：AI将占SpaceX估值99%</div><div class="nm">2026-08-12 22:32</div></div><div class="news"><div class="nt">富士康对苹果业务营收依赖下降：AI服务器占比首破50%</div><div class="nm">2026-08-12 21:15</div></div><div class="news"><div class="nt">工业富联半年报，一份被AI算力订单填满的成绩单</div><div class="nm">2026-08-12 21:02</div></div><div class="news"><div class="nt">半年报净利增速超营收，AI代工龙头如何支撑万亿估值</div><div class="nm">2026-08-12 20:33</div></div></div>
+<div class="tabcontent" id="holder-sh601138" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>China Galaxy Enterprise Limited · 持股36.75%</b></div><div class="kv"><span>第1大股东</span><b>China Galaxy Enterprise Limited · 持股36.75% · 72.93亿股</b></div><div class="kv"><span>第2大股东</span><b>富泰华工业(深圳)有限公司 · 持股21.99% · 43.65亿股</b></div><div class="kv"><span>第3大股东</span><b>Ambit Microsystems (Cayman) Ltd. · 持股9.59% · 19.02亿股</b></div></div>
+<div class="tabcontent" id="pledge-sh601138" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">0.29%</b></div><div class="kv"><span>质押笔数</span><b>2笔</b></div><div class="kv"><span>质押总量</span><b>5680万股</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">含权期(分红未除权)</span></div></div>
+<div class="tabcontent" id="lhb-sh601138" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh601138" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-06-30（披露 2026-08-12）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>5578.61亿 / 10999.9亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>237.40亿 / 469.13亿</b></div>
+<div class="kv"><span>基本EPS</span><b>1.2</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>7.2%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz002156">
+<div class="cardhead">
+<span class="code">sz002156</span><span class="nm">通富微电</span>
+<span class="px dn">62.44 -0.67%</span>
+<span class="str up">主力强度 +1.36%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz002156','play')">打法</button>
+<button class="tab" onclick="switchTab('sz002156','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz002156','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz002156','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz002156','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz002156','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz002156','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz002156','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz002156','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz002156','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz002156','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz002156','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz002156"><div class="playact">持有/观望</div>
+<div class="playstr">主力小幅流入或平衡，方向待确认，轻仓持有、暂不加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#f39c12">平衡/试探</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/观望</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌0.67%，主力净流入0.77亿（强度+1.36%），平衡/试探。20日主力仍净流出63.4亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sz002156" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>64.18</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>50.38</b></div>
+<div class="kv"><span>52周最低</span><b>27.92</b></div>
+<div class="kv"><span>跌停价</span><b>56.57</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>77.98</b></div>
+<div class="kv"><span>52周最高</span><b>84.70</b></div>
+<div class="kv"><span>涨停价</span><b>69.15</b></div></div></div>
+<div class="tabcontent" id="fund-sz002156" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+0.77亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+1.36%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-1.54亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-16.38亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-63.40亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+1.78亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-1.02亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+0.25亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>22.60亿 / 21.83亿</b></div></div>
+<div class="tabcontent" id="tech-sz002156" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>69.5 / 57.0 / 94.3</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-1.96 / -2.05</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.20</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>45.8 / 50.4 / 47.5 / 48.5</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>77.98 / 64.18 / 50.38</b></div></div>
+<div class="tabcontent" id="fundam-sz002156" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>集成电路的封装和测试。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>65.5 / 72.0</b></div>
+<div class="kv"><span>PB</span><b>6.10</b></div>
+<div class="kv"><span>总/流通市值</span><b>947.6亿 / 947.5亿</b></div>
+<div class="kv"><span>52周区间</span><b>27.92 ~ 84.70</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+66.0%</b></div>
+<div class="kv"><span>董事长</span><b>石磊</b></div>
+<div class="kv"><span>上市日期</span><b>2007-08-16</b></div></div>
+<div class="tabcontent" id="theme-sz002156" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">集成电路封测</span><span class="tag">AI算力</span><span class="tag">先进封装</span><span class="tag">数据中心</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>集成电路的封装和测试。</b></div></div>
+<div class="tabcontent" id="rating-sz002156" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz002156" style="display:none"><div class="news"><div class="nt">通富微电主力资金净流入1.1亿 短期情绪提振叠加AI算力逻辑强化</div><div class="nm">2026-08-12 15:17</div></div><div class="news"><div class="nt">阿里云大动作，100天交付一座数据中心！业绩增长的概念股出炉</div><div class="nm">2026-08-12 09:12</div></div><div class="news"><div class="nt">数据中心产业链迎红利周期！这些股上半年业绩向好</div><div class="nm">2026-08-12 08:04</div></div><div class="news"><div class="nt">通富微电8月11日被融资净卖出3.06亿元</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">算力链景气与AIoT智能化升级有望共振</div><div class="nm">2026-08-12 11:13</div></div></div>
+<div class="tabcontent" id="holder-sz002156" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz002156" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月新增发布业绩预告</span></div></div>
+<div class="tabcontent" id="lhb-sz002156" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz002156" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>74.82亿 / 293.1亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>3.29亿 / 14.46亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.2168</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>14.6%</b></div><div class="kv"><span>中报预约披露</span><b style="color:#7aa2f7">2026-08-26</b></div><div class="kv"><span>业绩预告</span><b style="color:#7aa2f7">近1个月已发布业绩预告</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh688825">
+<div class="cardhead">
+<span class="code">sh688825</span><span class="nm">长鑫科技</span>
+<span class="px dn">52.81 -1.33%</span>
+<span class="str dn">主力强度 -1.11%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh688825','play')">打法</button>
+<button class="tab" onclick="switchTab('sh688825','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh688825','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh688825','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh688825','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh688825','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh688825','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh688825','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh688825','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh688825','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh688825','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh688825','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh688825"><div class="playact">观望/轻仓</div>
+<div class="playstr">主力小幅流出，短线偏弱，观望为主；套牢者等反抽减仓。 60日累计涨幅偏大，高位回落需警惕趋势反转。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e67e22">流出/派发</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>观望/轻仓</b></div>
+<div class="kv"><span>中线(20日)</span><b>持有待涨</b></div>
+<div class="note">⚠️ 当日跌1.33%，主力净流出2.74亿（强度-1.11%），流出/派发。20日主力累计净流入748.2亿，当日小幅流出属获利回吐，趋势未坏。60日累计涨幅510%偏大，注意高位回落风险。</div></div>
+<div class="tabcontent" id="sr-sh688825" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>0.00</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>0.00</b></div>
+<div class="kv"><span>52周最低</span><b>38.11</b></div>
+<div class="kv"><span>跌停价</span><b>42.82</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>0.00</b></div>
+<div class="kv"><span>52周最高</span><b>60.60</b></div>
+<div class="kv"><span>涨停价</span><b>64.22</b></div></div></div>
+<div class="tabcontent" id="fund-sh688825" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-2.74亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-1.11%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-33.42亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-68.97亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="up">+748.22亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-1.87亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-0.33亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+3.07亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>175.37亿 / 178.12亿</b></div></div>
+<div class="tabcontent" id="tech-sh688825" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>38.0 / 39.2 / 35.6</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.00 / 0.00</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.00</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>57.0 / 57.2 / 59.4 / 0.0</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>0.00 / 0.00 / 0.00</b></div></div>
+<div class="tabcontent" id="fundam-sh688825" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>DRAM 研发、设计、制造一体化（CXMT 长鑫存储集团），专注 DRAM 产品研发、设计、生产及销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>125.3 / 35.7</b></div>
+<div class="kv"><span>PB</span><b>25.34</b></div>
+<div class="kv"><span>总/流通市值</span><b>3.53万亿 / 2378.1亿</b></div>
+<div class="kv"><span>52周区间</span><b>38.11 ~ 60.60</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+509.8%</b></div>
+<div class="kv"><span>董事长</span><b>赵纶</b></div>
+<div class="kv"><span>上市日期</span><b>2026-07-27</b></div></div>
+<div class="tabcontent" id="theme-sh688825" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">半导体</span><span class="tag">DRAM</span><span class="tag">存储</span><span class="tag">大基金概念</span><span class="tag">芯片</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>DRAM 研发、设计、制造一体化（CXMT 长鑫存储集团），专注 DRAM 产品研发、设计、生产及销售。</b></div></div>
+<div class="tabcontent" id="rating-sh688825" style="display:none"><div class="kv"><span>机构评级家数</span><b>0</b></div>
+<div class="kv"><span>评级分布</span><b>暂无评级</b></div>
+<div class="kv"><span>预测机构数</span><b>0</b></div>
+<div class="kv"><span>综合倾向</span><b>无覆盖</b></div></div>
+<div class="tabcontent" id="news-sh688825" style="display:none"><div class="news"><div class="nt">长鑫科技首次公开发行股票并在科创板上市公告书</div><div class="nm">2026-07-24</div></div><div class="news"><div class="nt">长鑫科技 7/27 登陆科创板，DRAM 龙头亮相 A股</div><div class="nm">2026-07-27</div></div><div class="news"><div class="nt">长鑫科技上市首日大涨，总市值站上 3.5 万亿</div><div class="nm">2026-07-27</div></div></div>
+<div class="tabcontent" id="holder-sh688825" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sh688825" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"></div></div>
+<div class="tabcontent" id="lhb-sh688825" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh688825" style="display:none"><div class="kv"><span>财务数据</span><b style="color:#7aa2f7">新上市 · 接口暂未返回季报(TTM)明细</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh688012">
+<div class="cardhead">
+<span class="code">sh688012</span><span class="nm">中微公司</span>
+<span class="px dn">371.15 -2.57%</span>
+<span class="str dn">主力强度 -2.94%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh688012','play')">打法</button>
+<button class="tab" onclick="switchTab('sh688012','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh688012','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh688012','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh688012','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh688012','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh688012','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh688012','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh688012','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh688012','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh688012','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh688012','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh688012"><div class="playact">观望/轻仓</div>
+<div class="playstr">主力小幅流出，短线偏弱，观望为主；套牢者等反抽减仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e67e22">流出/派发</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>观望/轻仓</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌2.57%，主力净流出2.63亿（强度-2.94%），流出/派发。</div></div>
+<div class="tabcontent" id="sr-sh688012" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>365.50</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>315.35</b></div>
+<div class="kv"><span>52周最低</span><b>125.40</b></div>
+<div class="kv"><span>跌停价</span><b>304.76</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>415.66</b></div>
+<div class="kv"><span>52周最高</span><b>500.00</b></div>
+<div class="kv"><span>涨停价</span><b>457.14</b></div></div></div>
+<div class="tabcontent" id="fund-sh688012" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-2.63亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-2.94%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-0.81亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-14.05亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-0.76亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-3.29亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+2.81亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-0.18亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>47.68亿 / 50.31亿</b></div></div>
+<div class="tabcontent" id="tech-sh688012" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>74.3 / 64.3 / 94.4</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-2.49 / -4.13</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">3.27</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>42.1 / 51.8 / 50.1 / 51.3</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>415.66 / 365.50 / 315.35</b></div></div>
+<div class="tabcontent" id="fundam-sh688012" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>高端半导体设备的研发、生产和销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>130.3 / 95.5</b></div>
+<div class="kv"><span>PB</span><b>12.89</b></div>
+<div class="kv"><span>总/流通市值</span><b>3555.0亿 / 3497.0亿</b></div>
+<div class="kv"><span>52周区间</span><b>125.40 ~ 500.00</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+103.0%</b></div>
+<div class="kv"><span>董事长</span><b>尹志尧</b></div>
+<div class="kv"><span>上市日期</span><b>2019-07-22</b></div></div>
+<div class="tabcontent" id="theme-sh688012" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">半导体设备</span><span class="tag">国产替代</span><span class="tag">存储(刻蚀)</span><span class="tag">(刻蚀/MOCVD)</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>高端半导体设备的研发、生产和销售。</b></div></div>
+<div class="tabcontent" id="rating-sh688012" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh688012" style="display:none"><div class="news"><div class="nt">伯恩斯坦：大幅上调半导体设备预测，北方华创、中微公司迎来黄金机遇</div><div class="nm">2026-08-12 20:42</div></div><div class="news"><div class="nt">卡脖子环节全面突围！半导体设备材料国产替代四条黄金主线</div><div class="nm">2026-08-12 20:32</div></div><div class="news"><div class="nt">长鑫科技放量大涨！主力资金净买入超22亿元居首</div><div class="nm">2026-08-12 14:38</div></div><div class="news"><div class="nt">中微公司主力资金净流入7.5亿元 短期情绪回暖叠加存储高景气驱动</div><div class="nm">2026-08-12 15:19</div></div><div class="news"><div class="nt">地产ETF领涨，科技板块反弹，电子ETF吸金</div><div class="nm">2026-08-12 18:02</div></div></div>
+<div class="tabcontent" id="holder-sh688012" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sh688012" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月新增发布业绩预告</span></div></div>
+<div class="tabcontent" id="lhb-sh688012" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh688012" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-28）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>29.15亿 / 131.3亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>9.30亿 / 27.29亿</b></div>
+<div class="kv"><span>基本EPS</span><b>1.48</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>38.9%</b></div><div class="kv"><span>中报预约披露</span><b style="color:#7aa2f7">2026-08-20</b></div><div class="kv"><span>业绩预告</span><b style="color:#7aa2f7">近1个月已发布业绩预告</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz002475">
+<div class="cardhead">
+<span class="code">sz002475</span><span class="nm">立讯精密</span>
+<span class="px dn">56.12 -2.14%</span>
+<span class="str dn">主力强度 -12.00%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz002475','play')">打法</button>
+<button class="tab" onclick="switchTab('sz002475','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz002475','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz002475','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz002475','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz002475','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz002475','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz002475','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz002475','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz002475','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz002475','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz002475','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz002475"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌2.14%，主力净流出7.13亿（强度-12.00%），出货/衰竭。</div></div>
+<div class="tabcontent" id="sr-sz002475" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>58.00</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>53.05</b></div>
+<div class="kv"><span>52周最低</span><b>37.68</b></div>
+<div class="kv"><span>跌停价</span><b>50.51</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>62.95</b></div>
+<div class="kv"><span>52周最高</span><b>81.64</b></div>
+<div class="kv"><span>涨停价</span><b>61.73</b></div></div></div>
+<div class="tabcontent" id="fund-sz002475" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-7.13亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-12.00%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-5.96亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-49.61亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-37.65亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-6.20亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+2.04亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+5.09亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>23.52亿 / 30.65亿</b></div></div>
+<div class="tabcontent" id="tech-sz002475" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>46.4 / 39.8 / 59.6</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-1.96 / -2.10</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.27</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>39.4 / 44.1 / 43.3 / 44.5</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>62.95 / 58.00 / 53.05</b></div></div>
+<div class="tabcontent" id="fundam-sz002475" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>精密制造业务，产品涵盖消费电子、汽车、通信、工业及医疗等领域。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>25.2 / 29.7</b></div>
+<div class="kv"><span>PB</span><b>4.97</b></div>
+<div class="kv"><span>总/流通市值</span><b>4342.5亿 / 4110.8亿</b></div>
+<div class="kv"><span>52周区间</span><b>37.68 ~ 81.64</b></div>
+<div class="kv"><span>年初至今</span><b class="dn">-0.5%</b></div>
+<div class="kv"><span>董事长</span><b>王来春</b></div>
+<div class="kv"><span>上市日期</span><b>2010-09-15</b></div></div>
+<div class="tabcontent" id="theme-sz002475" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">消费电子</span><span class="tag">AI算力/通信</span><span class="tag">汽车电子</span><span class="tag">精密制造</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>精密制造业务，产品涵盖消费电子、汽车、通信、工业及医疗等领域。</b></div></div>
+<div class="tabcontent" id="rating-sz002475" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz002475" style="display:none"><div class="news"><div class="nt">立讯精密拟8月24日举行董事会会议以审批中期业绩</div><div class="nm">2026-08-12 17:52</div></div><div class="news"><div class="nt">纽约梅隆银行在立讯精密的H股好仓比例下降6.64%至1.14%</div><div class="nm">2026-08-12 17:25</div></div><div class="news"><div class="nt">立讯精密主力资金净流入9.2亿元 短期做多情绪升温叠加AI算力催化</div><div class="nm">2026-08-12 15:26</div></div><div class="news"><div class="nt">消费电子业又被通知涨价：微软据称已提高Windows 11授权费用</div><div class="nm">2026-08-12 16:50</div></div><div class="news"><div class="nt">立讯精密涨2.93% 机构看好及技术面修复推动股价上行</div><div class="nm">2026-08-12 13:00</div></div></div>
+<div class="tabcontent" id="holder-sz002475" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>立讯有限公司 · 持股37.49%</b></div><div class="kv"><span>第1大股东</span><b>立讯有限公司 · 持股37.49% · 27.32亿股</b></div><div class="kv"><span>第2大股东</span><b>香港中央结算有限公司 · 持股5.70% · 4.15亿股</b></div><div class="kv"><span>第3大股东</span><b>中国证券金融股份有限公司 · 持股0.82% · 5981万股</b></div></div>
+<div class="tabcontent" id="pledge-sz002475" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">14.07%</b></div><div class="kv"><span>质押笔数</span><b>16笔</b></div><div class="kv"><span>质押总量</span><b>10.33亿股</b></div><div class="note" style="border-color:#e67e22;color:#ffd0a8;background:rgba(230,126,34,0.1)">⚠️ 质押比例≥10%，关注平仓线与控股股东资金链风险；高质押常伴随减持/冻结隐患。</div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sz002475" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz002475" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-29）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>838.88亿 / 3544.5亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>36.60亿 / 172.16亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.5</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>12.0%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh603336">
+<div class="cardhead">
+<span class="code">sh603336</span><span class="nm">宏辉果蔬</span>
+<span class="px dn">9.71 -3.67%</span>
+<span class="str dn">主力强度 -12.11%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh603336','play')">打法</button>
+<button class="tab" onclick="switchTab('sh603336','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh603336','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh603336','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh603336','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh603336','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh603336','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh603336','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh603336','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh603336','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh603336','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh603336','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh603336"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>持有待涨</b></div>
+<div class="note">⚠️ 当日跌3.67%，主力净流出0.25亿（强度-12.11%），出货/衰竭。20日主力累计净流入0.2亿，当日小幅流出属获利回吐，趋势未坏。</div></div>
+<div class="tabcontent" id="sr-sh603336" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>9.16</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>7.43</b></div>
+<div class="kv"><span>52周最低</span><b>7.15</b></div>
+<div class="kv"><span>跌停价</span><b>9.07</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>10.89</b></div>
+<div class="kv"><span>52周最高</span><b>13.25</b></div>
+<div class="kv"><span>涨停价</span><b>11.09</b></div></div></div>
+<div class="tabcontent" id="fund-sh603336" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-0.25亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-12.11%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-0.03亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-0.05亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="up">+0.22亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-0.15亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-0.07亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+0.32亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>0.55亿 / 0.79亿</b></div></div>
+<div class="tabcontent" id="tech-sh603336" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>62.2 / 75.5 / 35.5</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.46 / 0.38</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.16</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>13.5 / 49.4 / 57.7 / 55.1</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>10.89 / 9.16 / 7.43</b></div></div>
+<div class="tabcontent" id="fundam-sh603336" style="display:none"><div class="kv"><span>所属行业</span><b>农林牧渔 / 农林牧渔</b></div>
+<div class="kv"><span>主营</span><b>果蔬业务，集果蔬产品的种植管理、采后收购、产地预冷、冷冻仓储、预选分级、加工包装、冷链配送于一体。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>362.2 / 491.1</b></div>
+<div class="kv"><span>PB</span><b>4.12</b></div>
+<div class="kv"><span>总/流通市值</span><b>59.1亿 / 59.1亿</b></div>
+<div class="kv"><span>52周区间</span><b>7.15 ~ 13.25</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+13.5%</b></div>
+<div class="kv"><span>董事长</span><b>刘扬</b></div>
+<div class="kv"><span>上市日期</span><b>2016-11-24</b></div></div>
+<div class="tabcontent" id="theme-sh603336" style="display:none"><div class="themes"><span class="tag">农林牧渔</span><span class="tag">果蔬冷链</span><span class="tag">农产品加工</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>果蔬业务，集果蔬产品的种植管理、采后收购、产地预冷、冷冻仓储、预选分级、加工包装、冷链配送于一体。</b></div></div>
+<div class="tabcontent" id="rating-sh603336" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>增持</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>中性</b></div></div>
+<div class="tabcontent" id="news-sh603336" style="display:none"><div class="news"><div class="nt">宏辉果蔬主力资金净流入764.9万 短期情绪回暖提振股价表现</div><div class="nm">2026-08-12 15:24</div></div><div class="news"><div class="nt">宏辉果蔬主力资金净流出1003.7万 短期止跌企稳待业绩验证</div><div class="nm">2026-08-11 15:28</div></div><div class="news"><div class="nt">宏辉果蔬主力资金净流出1654万 短期波动不改长期估值空间</div><div class="nm">2026-08-10 15:24</div></div><div class="news"><div class="nt">创新药这次不只看BD</div><div class="nm">2026-08-10 09:28</div></div><div class="news"><div class="nt">宏辉果蔬主力资金净流入1389.2万元 短期情绪提振叠加龙虎榜催化</div><div class="nm">2026-08-07 15:26</div></div></div>
+<div class="tabcontent" id="holder-sh603336" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>苏州申泽瑞泰企业管理合伙 · 持股24.87%</b></div><div class="kv"><span>第1大股东</span><b>苏州申泽瑞泰企业管理合伙 · 持股24.87% · 1.51亿股</b></div><div class="kv"><span>第2大股东</span><b>黄俊辉 · 持股16.54% · 1.01亿股</b></div><div class="kv"><span>第3大股东</span><b>上海睿沣私募-睿沣隆盛 · 持股2.39% · 1454万股</b></div></div>
+<div class="tabcontent" id="pledge-sh603336" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">14.77%</b></div><div class="kv"><span>质押笔数</span><b>3笔</b></div><div class="kv"><span>质押总量</span><b>8988万股</b></div><div class="note" style="border-color:#e67e22;color:#ffd0a8;background:rgba(230,126,34,0.1)">⚠️ 质押比例≥10%，关注平仓线与控股股东资金链风险；高质押常伴随减持/冻结隐患。</div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sh603336" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh603336" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>2.02亿 / 10.1亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>0.03亿 / 0.16亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.01</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>9.8%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh600961">
+<div class="cardhead">
+<span class="code">sh600961</span><span class="nm">株冶集团</span>
+<span class="px dn">28.32 -3.34%</span>
+<span class="str dn">主力强度 -14.55%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh600961','play')">打法</button>
+<button class="tab" onclick="switchTab('sh600961','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh600961','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh600961','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh600961','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh600961','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh600961','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh600961','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh600961','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh600961','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh600961','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh600961','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh600961"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌3.34%，主力净流出2.35亿（强度-14.55%），出货/衰竭。</div></div>
+<div class="tabcontent" id="sr-sh600961" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>24.80</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>19.06</b></div>
+<div class="kv"><span>52周最低</span><b>12.10</b></div>
+<div class="kv"><span>跌停价</span><b>26.37</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>30.53</b></div>
+<div class="kv"><span>52周最高</span><b>36.98</b></div>
+<div class="kv"><span>涨停价</span><b>32.23</b></div></div></div>
+<div class="tabcontent" id="fund-sh600961" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-2.35亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-14.55%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-3.53亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-0.50亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-1.49亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-1.40亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+0.08亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+2.28亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>4.69亿 / 7.04亿</b></div></div>
+<div class="tabcontent" id="tech-sh600961" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>79.0 / 80.1 / 76.9</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.69 / -0.10</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">1.58</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>32.5 / 60.2 / 58.0 / 54.0</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>30.53 / 24.80 / 19.06</b></div></div>
+<div class="tabcontent" id="fundam-sh600961" style="display:none"><div class="kv"><span>所属行业</span><b>有色金属 / 有色金属</b></div>
+<div class="kv"><span>主营</span><b>锌及锌合金、工业硫酸的生产和销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>15.2 / 6.6</b></div>
+<div class="kv"><span>PB</span><b>6.01</b></div>
+<div class="kv"><span>总/流通市值</span><b>303.8亿 / 212.9亿</b></div>
+<div class="kv"><span>52周区间</span><b>12.10 ~ 36.98</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+75.9%</b></div>
+<div class="kv"><span>董事长</span><b>彭曙光</b></div>
+<div class="kv"><span>上市日期</span><b>2004-08-30</b></div></div>
+<div class="tabcontent" id="theme-sh600961" style="display:none"><div class="themes"><span class="tag">有色金属</span><span class="tag">锌</span><span class="tag">工业硫酸</span><span class="tag">LME挤仓</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>锌及锌合金、工业硫酸的生产和销售。</b></div></div>
+<div class="tabcontent" id="rating-sh600961" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh600961" style="display:none"><div class="news"><div class="nt">株冶集团主力资金净流出8028.6万元 短期抛压与情绪扰动压制股价表现</div><div class="nm">2026-08-12 15:35</div></div><div class="news"><div class="nt">株冶集团8月11日被融资净卖出4972万元</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">株冶集团主力资金净流出3.32亿元 短期抛压加剧触发技术回调</div><div class="nm">2026-08-11 15:19</div></div><div class="news"><div class="nt">株冶集团-5.00% 高位回调，获利盘涌出致股价大跌</div><div class="nm">2026-08-11 14:28</div></div><div class="news"><div class="nt">决战之巅——LME挤仓结束了吗</div><div class="nm">2026-08-12 19:40</div></div></div>
+<div class="tabcontent" id="holder-sh600961" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sh600961" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去7天新增发布财报</span></div></div>
+<div class="tabcontent" id="lhb-sh600961" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh600961" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-17）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>70.08亿 / 244.5亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>11.44亿 / 19.92亿</b></div>
+<div class="kv"><span>基本EPS</span><b>1.06</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>15.1%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh601958">
+<div class="cardhead">
+<span class="code">sh601958</span><span class="nm">金钼股份</span>
+<span class="px dn">22.44 -2.82%</span>
+<span class="str dn">主力强度 -14.99%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh601958','play')">打法</button>
+<button class="tab" onclick="switchTab('sh601958','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh601958','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh601958','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh601958','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh601958','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh601958','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh601958','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh601958','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh601958','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh601958','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh601958','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh601958"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌2.82%，主力净流出1.51亿（强度-14.99%），出货/衰竭。</div></div>
+<div class="tabcontent" id="sr-sh601958" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>21.49</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>18.63</b></div>
+<div class="kv"><span>52周最低</span><b>12.78</b></div>
+<div class="kv"><span>跌停价</span><b>20.78</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>24.35</b></div>
+<div class="kv"><span>52周最高</span><b>31.21</b></div>
+<div class="kv"><span>涨停价</span><b>25.40</b></div></div></div>
+<div class="tabcontent" id="fund-sh601958" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-1.51亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-14.99%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-1.07亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+0.00亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-2.58亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-0.86亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-0.01亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+1.52亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>3.10亿 / 4.61亿</b></div></div>
+<div class="tabcontent" id="tech-sh601958" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>64.3 / 72.6 / 47.7</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.12 / -0.22</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.69</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>16.1 / 48.6 / 50.6 / 49.9</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>24.35 / 21.49 / 18.63</b></div></div>
+<div class="tabcontent" id="fundam-sh601958" style="display:none"><div class="kv"><span>所属行业</span><b>有色金属 / 有色金属</b></div>
+<div class="kv"><span>主营</span><b>钼矿开采及钼炉料、钼化工、钼金属产品及配套的硫酸产品的生产和销售；钼及其它金属产品的贸易。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>20.6 / 20.8</b></div>
+<div class="kv"><span>PB</span><b>3.50</b></div>
+<div class="kv"><span>总/流通市值</span><b>724.0亿 / 724.0亿</b></div>
+<div class="kv"><span>52周区间</span><b>12.78 ~ 31.21</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+47.8%</b></div>
+<div class="kv"><span>董事长</span><b>严平</b></div>
+<div class="kv"><span>上市日期</span><b>2008-04-17</b></div></div>
+<div class="tabcontent" id="theme-sh601958" style="display:none"><div class="themes"><span class="tag">有色金属</span><span class="tag">钼</span><span class="tag">钼化工</span><span class="tag">周期资源</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>钼矿开采及钼炉料、钼化工、钼金属产品及配套的硫酸产品的生产和销售；钼及其它金属产品的贸易。</b></div></div>
+<div class="tabcontent" id="rating-sh601958" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh601958" style="display:none"><div class="news"><div class="nt">金钼股份主力资金净流出4602.7万元 短期谨慎观望待周期拐点验证</div><div class="nm">2026-08-12 15:19</div></div><div class="news"><div class="nt">金钼股份8月11日获融资净买入1772万元 环比降低44.64%</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">金钼股份主力资金净流出2.1亿元 短期情绪扰动不改钼价上行逻辑</div><div class="nm">2026-08-11 15:21</div></div><div class="news"><div class="nt">金钼股份-5.07% 短期涨幅过大回调，机构目标价低于现价</div><div class="nm">2026-08-11 10:03</div></div><div class="news"><div class="nt">金钼股份8月10日获融资净买入3201万元</div><div class="nm">2026-08-11 09:30</div></div></div>
+<div class="tabcontent" id="holder-sh601958" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sh601958" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">含权期(分红未除权)</span></div></div>
+<div class="tabcontent" id="lhb-sh601958" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh601958" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-29）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>41.58亿 / 147.1亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>9.02亿 / 33.78亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.279</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>41.2%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz000751">
+<div class="cardhead">
+<span class="code">sz000751</span><span class="nm">锌业股份</span>
+<span class="px dn">5.03 -3.27%</span>
+<span class="str dn">主力强度 -20.35%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz000751','play')">打法</button>
+<button class="tab" onclick="switchTab('sz000751','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz000751','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz000751','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz000751','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz000751','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz000751','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz000751','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz000751','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz000751','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz000751','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz000751','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz000751"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>持有待涨</b></div>
+<div class="note">⚠️ 当日跌3.27%，主力净流出0.65亿（强度-20.35%），出货/衰竭。20日主力累计净流入0.8亿，当日小幅流出属获利回吐，趋势未坏。</div></div>
+<div class="tabcontent" id="sr-sz000751" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>4.67</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>3.90</b></div>
+<div class="kv"><span>52周最低</span><b>3.33</b></div>
+<div class="kv"><span>跌停价</span><b>4.68</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>5.44</b></div>
+<div class="kv"><span>52周最高</span><b>7.81</b></div>
+<div class="kv"><span>涨停价</span><b>5.72</b></div></div></div>
+<div class="tabcontent" id="fund-sz000751" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-0.65亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-20.35%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-0.58亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+0.99亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="up">+0.79亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-0.44亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-0.16亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+0.81亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>0.50亿 / 1.15亿</b></div></div>
+<div class="tabcontent" id="tech-sz000751" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>73.5 / 79.2 / 62.0</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.06 / -0.04</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.20</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>18.1 / 53.2 / 53.9 / 50.2</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>5.44 / 4.67 / 3.90</b></div></div>
+<div class="tabcontent" id="fundam-sz000751" style="display:none"><div class="kv"><span>所属行业</span><b>有色金属 / 有色金属</b></div>
+<div class="kv"><span>主营</span><b>锌、铅冶炼及相关产品的生产和销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>71.7 / 27.6</b></div>
+<div class="kv"><span>PB</span><b>2.21</b></div>
+<div class="kv"><span>总/流通市值</span><b>81.3亿 / 81.3亿</b></div>
+<div class="kv"><span>52周区间</span><b>3.33 ~ 7.81</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+23.3%</b></div>
+<div class="kv"><span>董事长</span><b>于恩沅</b></div>
+<div class="kv"><span>上市日期</span><b>1997-06-26</b></div></div>
+<div class="tabcontent" id="theme-sz000751" style="display:none"><div class="themes"><span class="tag">有色金属</span><span class="tag">锌铅冶炼</span><span class="tag">稀土</span><span class="tag">磷化铟(题材联动)</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>锌、铅冶炼及相关产品的生产和销售。</b></div></div>
+<div class="tabcontent" id="rating-sz000751" style="display:none"><div class="kv"><span>机构评级家数</span><b>0</b></div>
+<div class="kv"><span>评级分布</span><b>暂无评级</b></div>
+<div class="kv"><span>预测机构数</span><b>0</b></div>
+<div class="kv"><span>综合倾向</span><b>无覆盖</b></div></div>
+<div class="tabcontent" id="news-sz000751" style="display:none"><div class="news"><div class="nt">锌业股份主力资金净流出454万 短期承压待景气验证</div><div class="nm">2026-08-12 15:19</div></div><div class="news"><div class="nt">锌业股份主力资金净流出2822.2万元 短期情绪偏空压制股价</div><div class="nm">2026-08-11 15:33</div></div><div class="news"><div class="nt">比存储芯片还紧缺？磷化铟，扩产竞速中</div><div class="nm">2026-08-07 12:31</div></div><div class="news"><div class="nt">锌业股份主力资金净流入4024万 稀土板块异动催生短期情绪回暖</div><div class="nm">2026-08-07 15:26</div></div><div class="news"><div class="nt">锌业股份主力资金净流出1886万 短期情绪退潮待行业景气验证</div><div class="nm">2026-08-10 15:34</div></div></div>
+<div class="tabcontent" id="holder-sz000751" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>中冶葫芦岛有色金属集团有限公司 · 持股20.59%</b></div><div class="kv"><span>第1大股东</span><b>中冶葫芦岛有色金属集团有限公司 · 持股20.59% · 3.33亿股</b></div><div class="kv"><span>第2大股东</span><b>葫芦岛宏跃集团有限公司 · 持股12.74% · 2.06亿股</b></div><div class="kv"><span>第3大股东</span><b>香港中央结算有限公司 · 持股1.31% · 2121万股</b></div></div>
+<div class="tabcontent" id="pledge-sz000751" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>解禁</span><b>葫芦岛宏跃集团有限公司 · 2.06亿股 · 2026-07-29已解禁</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sz000751" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz000751" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-24）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>51.54亿 / 196.0亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>0.74亿 / 1.13亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.0456</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>3.8%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div></div><div class="sec-title">重点关注（8只）（按主力强度排序）</div>
+<table><thead><tr><th>代码</th><th>名称</th><th>当日</th><th>主力强度</th><th>总市值</th><th>PE</th><th>PB</th><th>20日</th><th>行为</th><th>操作</th></tr></thead>
+<tbody><tr>
+<td class="c">sz000977</td><td class="n">浪潮信息</td>
+<td class="num up">+5.91%</td>
+<td class="num up">+9.42%</td>
+<td class="num">1166.7亿</td>
+<td class="num">45.7</td>
+<td class="num">5.25</td>
+<td class="num">-6.5%</td>
+<td style="color:#e74c3c">抢筹/建仓</td>
+<td>持有/逢回踩关注</td></tr><tr>
+<td class="c">sh600584</td><td class="n">长电科技</td>
+<td class="num up">+0.03%</td>
+<td class="num up">+1.16%</td>
+<td class="num">1399.3亿</td>
+<td class="num">84.7</td>
+<td class="num">4.89</td>
+<td class="num">-6.0%</td>
+<td style="color:#f39c12">平衡/试探</td>
+<td>持有/观望</td></tr><tr>
+<td class="c">sz300990</td><td class="n">同飞股份</td>
+<td class="num dn">-0.70%</td>
+<td class="num dn">-2.18%</td>
+<td class="num">125.6亿</td>
+<td class="num">50.1</td>
+<td class="num">5.95</td>
+<td class="num">-33.2%</td>
+<td style="color:#e67e22">流出/派发</td>
+<td>观望/轻仓</td></tr><tr>
+<td class="c">sz000725</td><td class="n">京东方Ａ</td>
+<td class="num dn">-0.84%</td>
+<td class="num dn">-3.71%</td>
+<td class="num">2178.2亿</td>
+<td class="num">36.6</td>
+<td class="num">1.63</td>
+<td class="num">-2.8%</td>
+<td style="color:#e67e22">流出/派发</td>
+<td>观望/轻仓</td></tr><tr>
+<td class="c">sz300476</td><td class="n">胜宏科技</td>
+<td class="num dn">-2.42%</td>
+<td class="num dn">-6.69%</td>
+<td class="num">2679.4亿</td>
+<td class="num">57.2</td>
+<td class="num">17.11</td>
+<td class="num">+0.6%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sh600206</td><td class="n">有研新材</td>
+<td class="num dn">-4.72%</td>
+<td class="num dn">-11.52%</td>
+<td class="num">427.1亿</td>
+<td class="num">134.3</td>
+<td class="num">9.80</td>
+<td class="num">+15.2%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sz002428</td><td class="n">云南锗业</td>
+<td class="num dn">-5.36%</td>
+<td class="num dn">-12.63%</td>
+<td class="num">655.1亿</td>
+<td class="num">3438.1</td>
+<td class="num">44.79</td>
+<td class="num">+20.3%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr><tr>
+<td class="c">sz000960</td><td class="n">锡业股份</td>
+<td class="num dn">-3.80%</td>
+<td class="num dn">-18.49%</td>
+<td class="num">621.1亿</td>
+<td class="num">26.6</td>
+<td class="num">3.06</td>
+<td class="num">+18.8%</td>
+<td style="color:#c0392b">出货/衰竭</td>
+<td>减仓/回避</td></tr></tbody></table>
+<div class="grid3">
+<div class="card" id="card-sz000977">
+<div class="cardhead">
+<span class="code">sz000977</span><span class="nm">浪潮信息</span>
+<span class="px up">79.45 +5.91%</span>
+<span class="str up">主力强度 +9.42%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz000977','play')">打法</button>
+<button class="tab" onclick="switchTab('sz000977','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz000977','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz000977','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz000977','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz000977','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz000977','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz000977','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz000977','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz000977','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz000977','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz000977','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz000977"><div class="playact">持有/逢回踩关注</div>
+<div class="playstr">主力连续净流入、量价配合，趋势向上，可持有；回踩不破中轨可加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e74c3c">抢筹/建仓</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/逢回踩关注</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日涨5.91%，主力净流入10.98亿（强度+9.42%），抢筹/建仓。20日主力仍净流出21.0亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sz000977" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>78.79</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>67.14</b></div>
+<div class="kv"><span>52周最低</span><b>55.32</b></div>
+<div class="kv"><span>跌停价</span><b>67.52</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>90.44</b></div>
+<div class="kv"><span>52周最高</span><b>96.37</b></div>
+<div class="kv"><span>涨停价</span><b>82.52</b></div></div></div>
+<div class="tabcontent" id="fund-sz000977" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+10.98亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+9.42%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-7.87亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-5.18亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-21.05亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+11.14亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-6.88亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-4.09亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>62.49亿 / 51.51亿</b></div></div>
+<div class="tabcontent" id="tech-sz000977" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>59.4 / 51.3 / 75.8</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.17 / 0.62</b></div>
+<div class="kv"><span>MACD柱</span><b class="dn">-0.91</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>87.9 / 61.4 / 54.4 / 53.8</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>90.44 / 78.79 / 67.14</b></div></div>
+<div class="tabcontent" id="fundam-sz000977" style="display:none"><div class="kv"><span>所属行业</span><b>计算机 / 计算机</b></div>
+<div class="kv"><span>主营</span><b>计算机软、硬件及其他信息产品的开发、生产、销售以及系统集成等。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>45.7 / 48.2</b></div>
+<div class="kv"><span>PB</span><b>5.25</b></div>
+<div class="kv"><span>总/流通市值</span><b>1166.7亿 / 1165.4亿</b></div>
+<div class="kv"><span>52周区间</span><b>55.32 ~ 96.37</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+19.4%</b></div>
+<div class="kv"><span>董事长</span><b>彭震</b></div>
+<div class="kv"><span>上市日期</span><b>2000-06-08</b></div></div>
+<div class="tabcontent" id="theme-sz000977" style="display:none"><div class="themes"><span class="tag">计算机</span><span class="tag">服务器</span><span class="tag">AI算力</span><span class="tag">国产算力</span><span class="tag">数据中心</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>计算机软、硬件及其他信息产品的开发、生产、销售以及系统集成等。</b></div></div>
+<div class="tabcontent" id="rating-sz000977" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>增持</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>中性</b></div></div>
+<div class="tabcontent" id="news-sz000977" style="display:none"><div class="news"><div class="nt">国产算力五大核心赛道全解析</div><div class="nm">2026-08-12 23:00</div></div><div class="news"><div class="nt">万亿空间打开！马斯克：AI将占SpaceX估值99%，两大A股主线迎来爆发窗口</div><div class="nm">2026-08-12 22:32</div></div><div class="news"><div class="nt">Rubin 算力新周期全面爆发！六大黄金产业链迎来业绩主升浪</div><div class="nm">2026-08-12 20:32</div></div><div class="news"><div class="nt">服务器BMC固件安全领域最高安全认证规范发布，浪潮信息参编</div><div class="nm">2026-08-12 18:24</div></div><div class="news"><div class="nt">浪潮信息主力资金净流出1.4亿元 短期交易出清不改AI算力长期逻辑</div><div class="nm">2026-08-12 15:19</div></div></div>
+<div class="tabcontent" id="holder-sz000977" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz000977" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sz000977" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz000977" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>354.70亿 / 1533.9亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>6.05亿 / 25.55亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.4119</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>5.7%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh600584">
+<div class="cardhead">
+<span class="code">sh600584</span><span class="nm">长电科技</span>
+<span class="px up">78.20 +0.03%</span>
+<span class="str up">主力强度 +1.16%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh600584','play')">打法</button>
+<button class="tab" onclick="switchTab('sh600584','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh600584','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh600584','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh600584','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh600584','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh600584','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh600584','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh600584','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh600584','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh600584','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh600584','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh600584"><div class="playact">持有/观望</div>
+<div class="playstr">主力小幅流入或平衡，方向待确认，轻仓持有、暂不加仓。 注意：20日主力仍净流出，当日流入属短线回补，趋势反转需持续确认。</div>
+<div class="kv"><span>操作建议</span><b style="color:#f39c12">平衡/试探</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>持有/观望</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日涨0.03%，主力净流入1.33亿（强度+1.16%），平衡/试探。20日主力仍净流出72.0亿，当日流入属短线回补，反转需持续确认。</div></div>
+<div class="tabcontent" id="sr-sh600584" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>75.96</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>61.55</b></div>
+<div class="kv"><span>52周最低</span><b>34.48</b></div>
+<div class="kv"><span>跌停价</span><b>70.36</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>90.37</b></div>
+<div class="kv"><span>52周最高</span><b>113.87</b></div>
+<div class="kv"><span>涨停价</span><b>86.00</b></div></div></div>
+<div class="tabcontent" id="fund-sh600584" style="display:none"><div class="kv"><span>当日主力净额</span><b class="up">+1.33亿</b></div>
+<div class="kv"><span>主力强度</span><b class="up">+1.16%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+6.14亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-3.06亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-71.95亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="up">+0.88亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-2.60亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+1.27亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>50.75亿 / 49.42亿</b></div></div>
+<div class="tabcontent" id="tech-sh600584" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>78.3 / 66.1 / 102.8</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-2.57 / -3.58</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">2.01</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>70.1 / 59.2 / 49.8 / 49.7</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>90.37 / 75.96 / 61.55</b></div></div>
+<div class="tabcontent" id="fundam-sh600584" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>集成电路的系统集成、设计仿真、技术开发、产品认证、晶圆中测、晶圆级中道封装测试、系统级封装测试、芯片成品测试。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>84.7 / 120.5</b></div>
+<div class="kv"><span>PB</span><b>4.89</b></div>
+<div class="kv"><span>总/流通市值</span><b>1399.3亿 / 1399.3亿</b></div>
+<div class="kv"><span>52周区间</span><b>34.48 ~ 113.87</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+113.2%</b></div>
+<div class="kv"><span>董事长</span><b>郑力</b></div>
+<div class="kv"><span>上市日期</span><b>2003-06-03</b></div></div>
+<div class="tabcontent" id="theme-sh600584" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">集成电路封测</span><span class="tag">先进封装</span><span class="tag">存储/芯片通胀</span><span class="tag">AI</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>集成电路的系统集成、设计仿真、技术开发、产品认证、晶圆中测、晶圆级中道封装测试、系统级封装测试、芯片成品测试。</b></div></div>
+<div class="tabcontent" id="rating-sh600584" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh600584" style="display:none"><div class="news"><div class="nt">长电科技：2026年第一次临时股东会增设网络投票提示服务</div><div class="nm">2026-08-12 18:56</div></div><div class="news"><div class="nt">利好引爆涨停潮！“易中天”狂飙 追光行情爆发背后有何信号</div><div class="nm">2026-08-12 15:39</div></div><div class="news"><div class="nt">长电科技主力资金净流出3103.2万元 短期波动整固待产业涨价验证</div><div class="nm">2026-08-12 15:28</div></div><div class="news"><div class="nt">瑞银：技术性卖压基本释放完毕，全球AI叙事已明显改善</div><div class="nm">2026-08-12 13:29</div></div><div class="news"><div class="nt">存储巨头业绩炸裂！大摩高喊“芯片通胀”</div><div class="nm">2026-08-12 12:18</div></div></div>
+<div class="tabcontent" id="holder-sh600584" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>磐石润企(深圳)信息管理有限公司 · 持股22.53%</b></div><div class="kv"><span>第1大股东</span><b>磐石润企(深圳)信息管理有限公司 · 持股22.53% · 4.03亿股</b></div><div class="kv"><span>第2大股东</span><b>香港中央结算有限公司 · 持股4.19% · 7493万股</b></div><div class="kv"><span>第3大股东</span><b>国家集成电路产业投资基金股份 · 持股3.20% · 5727万股</b></div><div class="note" style="border-color:#7aa2f7;color:#a9c0ff;background:rgba(122,162,247,0.1)">🔍 国家集成电路产业投资基金(大基金)位列前三大股东，半导体国家队战略持仓，关注大基金减持/增持动向。</div></div>
+<div class="tabcontent" id="pledge-sh600584" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月新增发布业绩预告</span></div></div>
+<div class="tabcontent" id="lhb-sh600584" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh600584" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-29）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>91.71亿 / 387.1亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>2.90亿 / 16.52亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.16</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>14.6%</b></div><div class="kv"><span>中报预约披露</span><b style="color:#7aa2f7">2026-08-21</b></div><div class="kv"><span>业绩预告</span><b style="color:#7aa2f7">近1个月已发布业绩预告</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz300990">
+<div class="cardhead">
+<span class="code">sz300990</span><span class="nm">同飞股份</span>
+<span class="px dn">73.36 -0.70%</span>
+<span class="str dn">主力强度 -2.18%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz300990','play')">打法</button>
+<button class="tab" onclick="switchTab('sz300990','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz300990','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz300990','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz300990','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz300990','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz300990','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz300990','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz300990','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz300990','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz300990','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz300990','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz300990"><div class="playact">观望/轻仓</div>
+<div class="playstr">主力小幅流出，短线偏弱，观望为主；套牢者等反抽减仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e67e22">流出/派发</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>观望/轻仓</b></div>
+<div class="kv"><span>中线(20日)</span><b>持有待涨</b></div>
+<div class="note">⚠️ 当日跌0.70%，主力净流出0.09亿（强度-2.18%），流出/派发。20日主力累计净流入0.3亿，当日小幅流出属获利回吐，趋势未坏。</div></div>
+<div class="tabcontent" id="sr-sz300990" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>77.21</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>56.73</b></div>
+<div class="kv"><span>52周最低</span><b>59.81</b></div>
+<div class="kv"><span>跌停价</span><b>59.10</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>97.69</b></div>
+<div class="kv"><span>52周最高</span><b>125.99</b></div>
+<div class="kv"><span>涨停价</span><b>88.66</b></div></div></div>
+<div class="tabcontent" id="fund-sz300990" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-0.09亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-2.18%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+0.37亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+0.97亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="up">+0.30亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-0.15亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+0.16亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="dn">-0.06亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>0.99亿 / 1.08亿</b></div></div>
+<div class="tabcontent" id="tech-sz300990" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>68.2 / 52.7 / 99.0</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-6.22 / -6.60</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.75</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>54.6 / 48.1 / 43.3 / 44.5</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>97.69 / 77.21 / 56.73</b></div></div>
+<div class="tabcontent" id="fundam-sz300990" style="display:none"><div class="kv"><span>所属行业</span><b>机械设备 / 机械设备</b></div>
+<div class="kv"><span>主营</span><b>工业温控设备的研发、生产和销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>50.1 / 52.5</b></div>
+<div class="kv"><span>PB</span><b>5.95</b></div>
+<div class="kv"><span>总/流通市值</span><b>125.6亿 / 57.0亿</b></div>
+<div class="kv"><span>52周区间</span><b>59.81 ~ 125.99</b></div>
+<div class="kv"><span>年初至今</span><b class="dn">-18.2%</b></div>
+<div class="kv"><span>董事长</span><b>张浩雷</b></div>
+<div class="kv"><span>上市日期</span><b>2021-05-12</b></div></div>
+<div class="tabcontent" id="theme-sz300990" style="display:none"><div class="themes"><span class="tag">机械设备</span><span class="tag">工业温控</span><span class="tag">液冷</span><span class="tag">AIDC</span><span class="tag">新型电力系统</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>工业温控设备的研发、生产和销售。</b></div></div>
+<div class="tabcontent" id="rating-sz300990" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz300990" style="display:none"><div class="news"><div class="nt">同飞股份中标50.48万元项目 扩大市场份额提升品牌影响力</div><div class="nm">2026-08-12 18:37</div></div><div class="news"><div class="nt">同飞股份主力资金净流出842万 短期筹码松动触发多空分歧</div><div class="nm">2026-08-12 15:33</div></div><div class="news"><div class="nt">新型电力系统景气周期开启，电力设备与储能需求实质性释放</div><div class="nm">2026-08-12 10:34</div></div><div class="news"><div class="nt">AIDC液冷核心零件，值得关注的9家公司</div><div class="nm">2026-08-11 20:27</div></div><div class="news"><div class="nt">同飞股份8月11日被融资净卖出21万元</div><div class="nm">2026-08-12 09:30</div></div></div>
+<div class="tabcontent" id="holder-sz300990" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz300990" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月内有董监高变动</span></div></div>
+<div class="tabcontent" id="lhb-sz300990" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz300990" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-24）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>6.99亿 / 29.9亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>0.60亿 / 2.51亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.35</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>21.8%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz000725">
+<div class="cardhead">
+<span class="code">sz000725</span><span class="nm">京东方Ａ</span>
+<span class="px dn">5.88 -0.84%</span>
+<span class="str dn">主力强度 -3.71%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz000725','play')">打法</button>
+<button class="tab" onclick="switchTab('sz000725','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz000725','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz000725','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz000725','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz000725','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz000725','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz000725','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz000725','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz000725','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz000725','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz000725','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz000725"><div class="playact">观望/轻仓</div>
+<div class="playstr">主力小幅流出，短线偏弱，观望为主；套牢者等反抽减仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#e67e22">流出/派发</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>观望/轻仓</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌0.84%，主力净流出3.17亿（强度-3.71%），流出/派发。</div></div>
+<div class="tabcontent" id="sr-sz000725" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>5.84</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>5.37</b></div>
+<div class="kv"><span>52周最低</span><b>3.73</b></div>
+<div class="kv"><span>跌停价</span><b>5.34</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>6.32</b></div>
+<div class="kv"><span>52周最高</span><b>9.50</b></div>
+<div class="kv"><span>涨停价</span><b>6.52</b></div></div></div>
+<div class="tabcontent" id="fund-sz000725" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-3.17亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-3.71%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-17.05亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-20.25亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-74.68亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-1.68亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+0.29亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+2.88亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>40.25亿 / 43.42亿</b></div></div>
+<div class="tabcontent" id="tech-sz000725" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>67.1 / 64.3 / 72.8</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-0.19 / -0.23</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">0.09</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>25.9 / 48.4 / 45.6 / 47.8</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>6.32 / 5.84 / 5.37</b></div></div>
+<div class="tabcontent" id="fundam-sz000725" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>光电子与显示器件、显示信息终端设备。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>36.6 / 31.9</b></div>
+<div class="kv"><span>PB</span><b>1.63</b></div>
+<div class="kv"><span>总/流通市值</span><b>2178.2亿 / 2079.6亿</b></div>
+<div class="kv"><span>52周区间</span><b>3.73 ~ 9.50</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+41.5%</b></div>
+<div class="kv"><span>董事长</span><b>陈炎顺</b></div>
+<div class="kv"><span>上市日期</span><b>2001-01-12</b></div></div>
+<div class="tabcontent" id="theme-sz000725" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">面板/显示</span><span class="tag">柔性显示</span><span class="tag">半导体显示</span><span class="tag">物联网</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>光电子与显示器件、显示信息终端设备。</b></div></div>
+<div class="tabcontent" id="rating-sz000725" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz000725" style="display:none"><div class="news"><div class="nt">京东方牵头制定首项卷曲显示器件国际标准 定义柔性显示产业新标尺</div><div class="nm">2026-08-12 19:57</div></div><div class="news"><div class="nt">2026年全球显示设备投资增长57%！</div><div class="nm">2026-08-12 17:21</div></div><div class="news"><div class="nt">京东方A：董事郭川因工作需要辞职</div><div class="nm">2026-08-12 17:04</div></div><div class="news"><div class="nt">预计金额数千万！埃斯顿新增关联交易涉及工业机器人</div><div class="nm">2026-08-12 18:36</div></div><div class="news"><div class="nt">京东方Ａ主力资金净流入2.5亿 短期情绪修复叠加面板周期回暖</div><div class="nm">2026-08-12 15:24</div></div></div>
+<div class="tabcontent" id="holder-sz000725" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz000725" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">0.43%</b></div><div class="kv"><span>质押笔数</span><b>2笔</b></div><div class="kv"><span>质押总量</span><b>1.56亿股</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sz000725" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz000725" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>510.01亿 / 2049.9亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>17.07亿 / 59.50亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.05</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>15.6%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz300476">
+<div class="cardhead">
+<span class="code">sz300476</span><span class="nm">胜宏科技</span>
+<span class="px dn">272.63 -2.42%</span>
+<span class="str dn">主力强度 -6.69%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz300476','play')">打法</button>
+<button class="tab" onclick="switchTab('sz300476','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz300476','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz300476','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz300476','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz300476','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz300476','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz300476','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz300476','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz300476','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz300476','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz300476','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz300476"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌2.42%，主力净流出9.29亿（强度-6.69%），出货/衰竭。KDJ_K=86/RSI_2=37 已入超买区，追高需谨慎、持仓者沿5日线持有破位减。</div></div>
+<div class="tabcontent" id="sr-sz300476" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>235.31</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>172.15</b></div>
+<div class="kv"><span>52周最低</span><b>177.88</b></div>
+<div class="kv"><span>跌停价</span><b>223.51</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>298.46</b></div>
+<div class="kv"><span>52周最高</span><b>402.60</b></div>
+<div class="kv"><span>涨停价</span><b>335.27</b></div></div></div>
+<div class="tabcontent" id="fund-sz300476" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-9.29亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-6.69%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+16.38亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+26.51亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-32.65亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-8.39亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+4.38亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+4.91亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>76.52亿 / 85.81亿</b></div></div>
+<div class="tabcontent" id="tech-sz300476" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>85.9 / 77.8 / 102.1</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>-2.64 / -13.85</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">22.42</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>37.3 / 63.4 / 55.9 / 49.9</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>298.46 / 235.31 / 172.15</b></div></div>
+<div class="tabcontent" id="fundam-sz300476" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>高密度印制线路板（PCBs）的研发、生产和销售，应用于AI、新能源汽车电子、新一代通信、大数据中心等。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>57.2 / 52.0</b></div>
+<div class="kv"><span>PB</span><b>17.11</b></div>
+<div class="kv"><span>总/流通市值</span><b>2679.4亿 / 2358.8亿</b></div>
+<div class="kv"><span>52周区间</span><b>177.88 ~ 402.60</b></div>
+<div class="kv"><span>年初至今</span><b class="dn">-4.5%</b></div>
+<div class="kv"><span>董事长</span><b>陈涛</b></div>
+<div class="kv"><span>上市日期</span><b>2015-06-11</b></div></div>
+<div class="tabcontent" id="theme-sz300476" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">PCB/HDI</span><span class="tag">AI服务器</span><span class="tag">Rubin算力</span><span class="tag">新能源汽车电子</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>高密度印制线路板（PCBs）的研发、生产和销售，应用于AI、新能源汽车电子、新一代通信、大数据中心等。</b></div></div>
+<div class="tabcontent" id="rating-sz300476" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz300476" style="display:none"><div class="news"><div class="nt">胜宏科技：股东陈勇解除质押37.4万股并新增质押89万股</div><div class="nm">2026-08-12 21:56</div></div><div class="news"><div class="nt">Rubin 算力新周期全面爆发！六大黄金产业链迎来业绩主升浪</div><div class="nm">2026-08-12 20:32</div></div><div class="news"><div class="nt">机构：高壁垒铸就PCB产业韧性，头部企业主导格局有望延续</div><div class="nm">2026-08-12 13:02</div></div><div class="news"><div class="nt">胜宏科技一致行动人质押74.67%，持股仅0.24%风险可控</div><div class="nm">2026-08-12 19:10</div></div><div class="news"><div class="nt">但斌旗下基金最新美股持仓曝光</div><div class="nm">2026-08-12 12:39</div></div></div>
+<div class="tabcontent" id="holder-sz300476" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>深圳市胜华欣业投资有限公司 · 持股15.45%</b></div><div class="kv"><span>第1大股东</span><b>深圳市胜华欣业投资有限公司 · 持股15.45% · 1.35亿股</b></div><div class="kv"><span>第2大股东</span><b>胜宏科技集团(香港)有限公司 · 持股15.06% · 1.31亿股</b></div><div class="kv"><span>第3大股东</span><b>香港中央结算有限公司 · 持股2.86% · 2495万股</b></div></div>
+<div class="tabcontent" id="pledge-sz300476" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">0.11%</b></div><div class="kv"><span>质押笔数</span><b>3笔</b></div><div class="kv"><span>质押总量</span><b>99万股</b></div><div class="kv"><span>解禁</span><b>上海盘京/中金/睿远/兴证全球/UBS等定增股东 · 810万股 · 2026-04-21已解禁</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">未来1个月内发布新财报</span></div></div>
+<div class="tabcontent" id="lhb-sz300476" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz300476" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-29）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>55.19亿 / 205.0亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>12.88亿 / 46.80亿</b></div>
+<div class="kv"><span>基本EPS</span><b>1.48</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>35.4%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sh600206">
+<div class="cardhead">
+<span class="code">sh600206</span><span class="nm">有研新材</span>
+<span class="px dn">50.45 -4.72%</span>
+<span class="str dn">主力强度 -11.52%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sh600206','play')">打法</button>
+<button class="tab" onclick="switchTab('sh600206','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sh600206','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sh600206','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sh600206','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sh600206','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sh600206','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sh600206','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sh600206','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sh600206','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sh600206','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sh600206','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sh600206"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。 60日累计涨幅偏大，高位回落需警惕趋势反转。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌4.72%，主力净流出6.22亿（强度-11.52%），出货/衰竭。60日累计涨幅64%偏大，注意高位回落风险。</div></div>
+<div class="tabcontent" id="sr-sh600206" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>42.61</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>30.58</b></div>
+<div class="kv"><span>52周最低</span><b>18.71</b></div>
+<div class="kv"><span>跌停价</span><b>47.66</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>54.64</b></div>
+<div class="kv"><span>52周最高</span><b>69.40</b></div>
+<div class="kv"><span>涨停价</span><b>58.25</b></div></div></div>
+<div class="tabcontent" id="fund-sh600206" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-6.22亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-11.52%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="up">+0.14亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+3.54亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-4.55亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-3.96亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-1.33亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+7.55亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>14.79亿 / 21.01亿</b></div></div>
+<div class="tabcontent" id="tech-sh600206" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>83.0 / 74.5 / 100.0</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>1.26 / -0.29</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">3.11</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>33.2 / 64.2 / 58.1 / 55.6</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>54.64 / 42.61 / 30.58</b></div></div>
+<div class="tabcontent" id="fundam-sh600206" style="display:none"><div class="kv"><span>所属行业</span><b>电子 / 电子</b></div>
+<div class="kv"><span>主营</span><b>半导体材料、稀土材料、光电材料、高纯/超高纯金属材料等先进功能材料的研发、生产和销售。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>134.3 / 116.5</b></div>
+<div class="kv"><span>PB</span><b>9.80</b></div>
+<div class="kv"><span>总/流通市值</span><b>427.1亿 / 427.1亿</b></div>
+<div class="kv"><span>52周区间</span><b>18.71 ~ 69.40</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+149.3%</b></div>
+<div class="kv"><span>董事长</span><b>艾磊</b></div>
+<div class="kv"><span>上市日期</span><b>1999-03-19</b></div></div>
+<div class="tabcontent" id="theme-sh600206" style="display:none"><div class="themes"><span class="tag">电子</span><span class="tag">半导体材料</span><span class="tag">稀土材料</span><span class="tag">存储(靶材)</span><span class="tag">高纯金属</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>半导体材料、稀土材料、光电材料、高纯/超高纯金属材料等先进功能材料的研发、生产和销售。</b></div></div>
+<div class="tabcontent" id="rating-sh600206" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sh600206" style="display:none"><div class="news"><div class="nt">有研新材主力资金净流出2.6亿元 短期抛压与长期逻辑形成博弈</div><div class="nm">2026-08-12 15:19</div></div><div class="news"><div class="nt">存储巨头业绩炸裂！大摩高喊“芯片通胀”</div><div class="nm">2026-08-12 12:18</div></div><div class="news"><div class="nt">中信证券：存储产业保持高景气度 后续关注LTA进展与股东回报</div><div class="nm">2026-08-12 08:03</div></div><div class="news"><div class="nt">有研新材8月11日被融资净卖出3478万元</div><div class="nm">2026-08-12 09:31</div></div><div class="news"><div class="nt">有研新材主力资金净流出3.24亿元 短期抛压加剧震荡整固</div><div class="nm">2026-08-11 15:32</div></div></div>
+<div class="tabcontent" id="holder-sh600206" style="display:none"><div class="kv"><span>控股股东/第一大</span><b>中国有研科技集团有限公司 · 持股33.09%</b></div><div class="kv"><span>第1大股东</span><b>中国有研科技集团有限公司 · 持股33.09% · 2.80亿股</b></div><div class="kv"><span>第2大股东</span><b>国新投资有限公司 · 持股2.44% · 2062万股</b></div><div class="kv"><span>第3大股东</span><b>广东粤财信托·粤中3号 · 持股1.74% · 1471万股</b></div></div>
+<div class="tabcontent" id="pledge-sh600206" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去7天新增发布财报</span></div></div>
+<div class="tabcontent" id="lhb-sh600206" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sh600206" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-06-30（披露 2026-08-05）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>61.58亿 / 116.0亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>1.83亿 / 3.18亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.217</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>8.5%</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz002428">
+<div class="cardhead">
+<span class="code">sz002428</span><span class="nm">云南锗业</span>
+<span class="px dn">100.30 -5.36%</span>
+<span class="str dn">主力强度 -12.63%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz002428','play')">打法</button>
+<button class="tab" onclick="switchTab('sz002428','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz002428','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz002428','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz002428','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz002428','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz002428','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz002428','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz002428','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz002428','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz002428','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz002428','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz002428"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌5.36%，主力净流出12.63亿（强度-12.63%），出货/衰竭。KDJ_K=86/RSI_2=39 已入超买区，追高需谨慎、持仓者沿5日线持有破位减。</div></div>
+<div class="tabcontent" id="sr-sz002428" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>80.93</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>53.81</b></div>
+<div class="kv"><span>52周最低</span><b>22.68</b></div>
+<div class="kv"><span>跌停价</span><b>95.38</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>108.06</b></div>
+<div class="kv"><span>52周最高</span><b>132.87</b></div>
+<div class="kv"><span>涨停价</span><b>116.58</b></div></div></div>
+<div class="tabcontent" id="fund-sz002428" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-12.63亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-12.63%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-8.29亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="up">+11.66亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-5.52亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-11.60亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="up">+4.17亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+8.46亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>37.34亿 / 49.98亿</b></div></div>
+<div class="tabcontent" id="tech-sz002428" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>86.3 / 82.5 / 93.9</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>2.74 / -1.50</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">8.48</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>39.4 / 65.3 / 60.1 / 55.3</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>108.06 / 80.93 / 53.81</b></div></div>
+<div class="tabcontent" id="fundam-sz002428" style="display:none"><div class="kv"><span>所属行业</span><b>有色金属 / 有色金属</b></div>
+<div class="kv"><span>主营</span><b>锗矿开采、火法富集、湿法提纯、区熔精炼、精深加工，产品为区熔锗锭、红外级锗单晶及锗镜片，应用于红外光学、太阳能电池。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>3438.1 / 1798.3</b></div>
+<div class="kv"><span>PB</span><b>44.79</b></div>
+<div class="kv"><span>总/流通市值</span><b>655.1亿 / 655.0亿</b></div>
+<div class="kv"><span>52周区间</span><b>22.68 ~ 132.87</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+216.0%</b></div>
+<div class="kv"><span>董事长</span><b>包文东</b></div>
+<div class="kv"><span>上市日期</span><b>2010-06-08</b></div></div>
+<div class="tabcontent" id="theme-sz002428" style="display:none"><div class="themes"><span class="tag">有色金属</span><span class="tag">锗</span><span class="tag">磷化铟</span><span class="tag">红外光学</span><span class="tag">太空光伏(卫星)</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>锗矿开采、火法富集、湿法提纯、区熔精炼、精深加工，产品为区熔锗锭、红外级锗单晶及锗镜片，应用于红外光学、太阳能电池。</b></div></div>
+<div class="tabcontent" id="rating-sz002428" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz002428" style="display:none"><div class="news"><div class="nt">云南锗业，天降横财！</div><div class="nm">2026-08-12 19:30</div></div><div class="news"><div class="nt">云南锗业主力资金净流入2.0亿元 磷化铟订单驱动短期走强</div><div class="nm">2026-08-12 15:35</div></div><div class="news"><div class="nt">中航证券：国内可重复使用火箭加速成熟，太空光伏迎来产业化拐点</div><div class="nm">2026-08-12 11:22</div></div><div class="news"><div class="nt">磷化铟板块强势 云南锗业涨幅居前</div><div class="nm">2026-08-12 09:45</div></div><div class="news"><div class="nt">云南锗业涨4.96% 锗价上涨及机构看好推动股价走强</div><div class="nm">2026-08-12 09:43</div></div></div>
+<div class="tabcontent" id="holder-sz002428" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz002428" style="display:none"><div class="kv"><span>质押比例</span><b style="color:#e67e22">5.44%</b></div><div class="kv"><span>质押笔数</span><b>5笔</b></div><div class="kv"><span>质押总量</span><b>3550万股</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月新增发布业绩预告</span></div></div>
+<div class="tabcontent" id="lhb-sz002428" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz002428" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-30）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>2.89亿 / 11.1亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>0.09亿 / 0.19亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.014</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>20.0%</b></div><div class="kv"><span>中报预约披露</span><b style="color:#7aa2f7">2026-08-28</b></div><div class="kv"><span>业绩预告</span><b style="color:#7aa2f7">近1个月已发布业绩预告</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div>
+<div class="card" id="card-sz000960">
+<div class="cardhead">
+<span class="code">sz000960</span><span class="nm">锡业股份</span>
+<span class="px dn">37.75 -3.80%</span>
+<span class="str dn">主力强度 -18.49%</span>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('sz000960','play')">打法</button>
+<button class="tab" onclick="switchTab('sz000960','sr')">支撑/压力</button>
+<button class="tab" onclick="switchTab('sz000960','fund')">资金面</button>
+<button class="tab" onclick="switchTab('sz000960','tech')">技术面</button>
+<button class="tab" onclick="switchTab('sz000960','fundam')">基本面</button>
+<button class="tab" onclick="switchTab('sz000960','theme')">关联板块</button>
+<button class="tab" onclick="switchTab('sz000960','rating')">机构评级</button>
+<button class="tab" onclick="switchTab('sz000960','news')">最新动态</button>
+<button class="tab" onclick="switchTab('sz000960','holder')">股东结构</button>
+<button class="tab" onclick="switchTab('sz000960','pledge')">质押·解禁</button>
+<button class="tab" onclick="switchTab('sz000960','lhb')">龙虎榜</button>
+<button class="tab" onclick="switchTab('sz000960','fin')">业绩预告</button>
+</div>
+<div class="tabcontent" id="play-sz000960"><div class="playact">减仓/回避</div>
+<div class="playstr">主力大幅净流出，出货/派发特征明显，反弹即减、不抄底；重仓者降至轻仓。</div>
+<div class="kv"><span>操作建议</span><b style="color:#c0392b">出货/衰竭</b></div>
+<div class="kv"><span>短线(1-5日)</span><b>减仓/回避</b></div>
+<div class="kv"><span>中线(20日)</span><b>反弹减仓</b></div>
+<div class="note">⚠️ 当日跌3.80%，主力净流出3.83亿（强度-18.49%），出货/衰竭。</div></div>
+<div class="tabcontent" id="sr-sz000960" style="display:none"><div class="srblock"><div class="srlabel" style="color:#27ae60">支撑位</div>
+<div class="kv"><span>中轨(BOLL)</span><b>34.61</b></div>
+<div class="kv"><span>下轨(BOLL)</span><b>27.17</b></div>
+<div class="kv"><span>52周最低</span><b>17.80</b></div>
+<div class="kv"><span>跌停价</span><b>35.32</b></div></div>
+<div class="srblock"><div class="srlabel" style="color:#e74c3c">压力位</div>
+<div class="kv"><span>上轨(BOLL)</span><b>42.04</b></div>
+<div class="kv"><span>52周最高</span><b>48.77</b></div>
+<div class="kv"><span>涨停价</span><b>43.16</b></div></div></div>
+<div class="tabcontent" id="fund-sz000960" style="display:none"><div class="kv"><span>当日主力净额</span><b class="dn">-3.83亿</b></div>
+<div class="kv"><span>主力强度</span><b class="dn">-18.49%</b></div>
+<div class="kv"><span>5日主力</span><b><span class="dn">-10.92亿</span></b></div>
+<div class="kv"><span>10日主力</span><b><span class="dn">-5.44亿</span></b></div>
+<div class="kv"><span>20日主力</span><b><span class="dn">-5.10亿</span></b></div>
+<div class="kv"><span>特大单</span><b><span class="dn">-3.26亿</span></b></div>
+<div class="kv"><span>中单</span><b><span class="dn">-0.36亿</span></b></div>
+<div class="kv"><span>小单</span><b><span class="up">+4.20亿</span></b></div>
+<div class="kv"><span>主力流入/流出</span><b>5.93亿 / 9.77亿</b></div></div>
+<div class="tabcontent" id="tech-sz000960" style="display:none"><div class="kv"><span>KDJ(K/D/J)</span><b>73.9 / 82.2 / 57.4</b></div>
+<div class="kv"><span>MACD(DIF/DEA)</span><b>0.78 / 0.01</b></div>
+<div class="kv"><span>MACD柱</span><b class="up">1.53</b></div>
+<div class="kv"><span>RSI(2/6/12/24)</span><b>22.3 / 52.0 / 53.8 / 51.4</b></div>
+<div class="kv"><span>BOLL(上/中/下)</span><b>42.04 / 34.61 / 27.17</b></div></div>
+<div class="tabcontent" id="fundam-sz000960" style="display:none"><div class="kv"><span>所属行业</span><b>有色金属 / 有色金属</b></div>
+<div class="kv"><span>主营</span><b>锡、锌、铜、铟等金属矿的勘探、开采、选矿和冶炼及锡的深加工。</b></div>
+<div class="kv"><span>PE(TTM/远期)</span><b>26.6 / 17.9</b></div>
+<div class="kv"><span>PB</span><b>3.06</b></div>
+<div class="kv"><span>总/流通市值</span><b>621.1亿 / 621.1亿</b></div>
+<div class="kv"><span>52周区间</span><b>17.80 ~ 48.77</b></div>
+<div class="kv"><span>年初至今</span><b class="up">+37.2%</b></div>
+<div class="kv"><span>董事长</span><b>徐培良</b></div>
+<div class="kv"><span>上市日期</span><b>2000-02-21</b></div></div>
+<div class="tabcontent" id="theme-sz000960" style="display:none"><div class="themes"><span class="tag">有色金属</span><span class="tag">锡</span><span class="tag">铟</span><span class="tag">小金属</span><span class="tag">供需趋紧</span></div><div class="kv" style="margin-top:12px"><span>产业链定位</span><b>锡、锌、铜、铟等金属矿的勘探、开采、选矿和冶炼及锡的深加工。</b></div></div>
+<div class="tabcontent" id="rating-sz000960" style="display:none"><div class="kv"><span>机构评级家数</span><b>1</b></div>
+<div class="kv"><span>评级分布</span><b>买入</b></div>
+<div class="kv"><span>预测机构数</span><b>1</b></div>
+<div class="kv"><span>综合倾向</span><b>看多</b></div></div>
+<div class="tabcontent" id="news-sz000960" style="display:none"><div class="news"><div class="nt">锡业股份主力资金净流出1.42亿 短期获利了结引发震荡 中长期景气支撑未改</div><div class="nm">2026-08-12 15:35</div></div><div class="news"><div class="nt">锡钨供需趋紧或进一步打开上行空间，有色ETF易方达涨2.63%</div><div class="nm">2026-08-12 10:16</div></div><div class="news"><div class="nt">上半年云锡控股公司营收同比增长40.99%</div><div class="nm">2026-08-12 07:16</div></div><div class="news"><div class="nt">锡业股份8月11日被融资净卖出7870万元</div><div class="nm">2026-08-12 09:30</div></div><div class="news"><div class="nt">机构：有色板块从反弹到反转，关注金铜主线及科技金属</div><div class="nm">2026-08-11 21:21</div></div></div>
+<div class="tabcontent" id="holder-sz000960" style="display:none"><div class="kv"><span>十大股东</span><b>数据接口未返回（可能延迟或空窗）</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">提示：该股票当期十大股东数据缺失，不代表无股东，属数据源未覆盖，勿据此判断股权结构。</div></div>
+<div class="tabcontent" id="pledge-sz000960" style="display:none"><div class="kv"><span>股权质押</span><b style="color:#00d97e">无质押（接口返回为空）</b></div><div class="kv"><span>近期解禁</span><b style="color:#00d97e">无（接口返回为空）</b></div><div class="themes" style="margin-top:8px"><span class="tag" style="background:rgba(231,76,60,0.18);color:#ffb3ab">过去1个月新增发布业绩预告</span></div></div>
+<div class="tabcontent" id="lhb-sz000960" style="display:none"><div class="kv"><span>2026-08-12 龙虎榜</span><b style="color:#00d97e">当日未上榜</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">经核对全市场龙虎榜清单，该股票 2026-08-12 无上榜记录（或未满上榜阈值）。如需历史席位可指定日期再查。</div></div>
+<div class="tabcontent" id="fin-sz000960" style="display:none"><div class="kv"><span>最新报告期</span><b>2026-03-31（披露 2026-04-28）</b></div>
+<div class="kv"><span>营业收入(本期/TTM)</span><b>155.52亿 / 493.6亿</b></div>
+<div class="kv"><span>归母净利(本期/TTM)</span><b>8.68亿 / 23.34亿</b></div>
+<div class="kv"><span>基本EPS</span><b>0.5178</b></div>
+<div class="kv"><span>毛利率(TTM)</span><b>10.9%</b></div><div class="kv"><span>中报预约披露</span><b style="color:#7aa2f7">2026-08-20</b></div><div class="kv"><span>业绩预告</span><b style="color:#7aa2f7">近1个月已发布业绩预告</b></div><div class="note" style="border-color:#888;color:#bbb;background:rgba(255,255,255,0.04)">业绩预告具体数值以公司公告为准；接口仅返回中报预约披露日与「近1月已发预告」标签，不提供预告利润区间，故不编造。</div></div>
+</div></div>
+<div class="sub" style="margin-top:24px">说明：股东/质押/解禁来自 data_shareholder·data_risk；财报来自 data_finance；龙虎榜核对 2026-08-13 全市场清单；中报预约/业绩预告标签来自 data_disclosure·data_events（仅返回预约披露日，不提供预告利润区间，故不编造）。</div>
+</div>
+<script>
+function switchTab(code,t){document.querySelectorAll('#card-'+code+' .tabcontent').forEach(e=>e.style.display='none');document.getElementById(t+'-'+code).style.display='block';document.querySelectorAll('#card-'+code+' .tab').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');}
+</script></body></html>

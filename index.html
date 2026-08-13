@@ -1,152 +1,269 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>260812 杜鑫·股票分析报告门户</title><style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>杜鑫·A股作战仪表盘（2026-08-13）</title><style>
+:root{
+  --bg:#0a0d15; --bg2:#0e1320; --card:#141b29; --card2:#10151f;
+  --line:#23304a; --line2:#2c3a57; --txt:#e8edf6; --sub:#9aa6bd;
+  --blue:#7dd3fc; --violet:#a78bfa; --pink:#f0abfc;
+  --up:#ff5a5f; --dn:#22d3a6; --warn:#f6b73c; --gold:#e9c46a;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e);color:#e0e0e0;min-height:100vh;padding:24px}
-.wrap{max-width:800px;margin:0 auto}
-h1{font-size:22px;margin-bottom:6px;color:#fff}
-.s{color:#888;font-size:12px;margin-bottom:24px}
-.item{display:block;padding:14px 16px;margin-bottom:10px;background:rgba(255,255,255,0.05);border-radius:10px;text-decoration:none;color:#e0e0e0;border-left:4px solid transparent;transition:all 0.2s}
-.item:hover{background:rgba(255,255,255,0.12);transform:translateX(4px)}
-.item.hl{border-left-color:#e74c3c;background:rgba(231,76,60,0.12)}
-.item.new{border-left-color:#f39c12;background:rgba(243,156,18,0.12)}
-.t{font-size:15px;font-weight:600;margin-bottom:3px}
-.t .badge{font-size:10px;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
-.badge-new{background:#f39c12;color:#000}
-.badge-star{background:#e74c3c;color:#fff}
-.d{font-size:12px;color:#999}
-.en{font-size:10px;color:#555;margin-top:2px}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(56,189,248,.10), transparent 60%),
+    radial-gradient(900px 480px at -5% 0%, rgba(129,140,248,.10), transparent 55%),
+    radial-gradient(700px 400px at 50% 120%, rgba(240,171,252,.05), transparent 60%),
+    var(--bg);
+  color:var(--txt); padding:26px 22px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1200px;margin:0 auto}
+h1{
+  font-size:25px; font-weight:800; letter-spacing:.3px; margin-bottom:6px; line-height:1.25;
+  background:linear-gradient(92deg,#7dd3fc,#a78bfa 58%,#f0abfc);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.sub{color:var(--sub);font-size:12.5px;margin-bottom:22px;line-height:1.75}
+.sub b{color:#cdd6e8}
+
+/* 涨跌色（A股：红涨绿跌） */
+.up{color:var(--up)!important;font-weight:600}
+.dn,.down{color:var(--dn)!important;font-weight:600}
+.flat{color:#9aa6bd!important}
+
+/* 章节标题 */
+.sec,.sec-title{
+  font-size:16.5px;font-weight:700;color:#fff;margin:30px 0 12px;padding-left:12px;
+  border-left:4px solid transparent;
+  border-image:linear-gradient(180deg,#38bdf8,#818cf8) 1;
+  letter-spacing:.3px;
+}
+.foot{margin-top:26px;font-size:11.5px;color:#6b7790;line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
+
+/* 通用卡片 / 盒子 */
+.card,.box{
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 6px 22px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.03);
+  padding:14px 16px;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.box:hover{border-color:var(--line2);box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* KPI 盒 */
+.box h2{font-size:14px;margin:0 0 8px;color:var(--blue);font-weight:700;letter-spacing:.4px}
+.kpi{font-size:27px;font-weight:800;line-height:1.1;letter-spacing:.5px}
+.kpi.up{color:var(--up)} .kpi.down{color:var(--dn)}
+.note{font-size:12.5px;color:#b9c3d6;line-height:1.7;background:rgba(255,255,255,.025);
+  border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:0 9px 9px 0;padding:10px 13px;margin-top:8px}
+
+/* 标签 / 主题胶囊 */
+.tag{display:inline-block;background:linear-gradient(180deg,#1d2738,#161d2b);color:#a9c7ff;
+  padding:4px 11px;border-radius:20px;font-size:12px;margin:3px 4px 3px 0;border:1px solid #243049}
+.themes{line-height:2.2}
+.tags{margin:4px 0}
+
+/* 表格 */
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;
+  background:linear-gradient(180deg,#121826,#0f141f);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
+th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#aab6cc;font-weight:700;
+  text-align:left;padding:11px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;font-size:12.5px;letter-spacing:.3px}
+td{padding:10px;border-bottom:1px solid #1a2233;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+tbody tr:hover td{background:rgba(56,189,248,.07)}
+td.c{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+td.n{font-weight:700;color:#fff}
+td.num{text-align:right;font-family:'JetBrains Mono',Consolas,monospace;white-space:nowrap}
+.code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 个股大卡（Tab版） */
+.card{overflow:hidden;padding:0}
+.cardhead{display:flex;align-items:center;gap:12px;padding:15px 18px;flex-wrap:wrap;
+  background:linear-gradient(90deg,#1b2436,#141b29);border-bottom:1px solid var(--line)}
+.cardhead .code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.cardhead .nm{font-size:18px;font-weight:800;color:#fff;letter-spacing:.4px}
+.cardhead .px{font-size:16px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.cardhead .str{font-size:12.5px;font-weight:700;background:rgba(56,189,248,.12);
+  color:#9fe0ff;padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.tabs{display:flex;flex-wrap:wrap;gap:5px;padding:11px 12px 0;background:#0f1521;
+  border-bottom:1px solid var(--line)}
+.tab{background:#18202f;color:#9aa6bd;border:1px solid #222c40;border-bottom:none;
+  padding:8px 15px;border-radius:9px 9px 0 0;cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .15s ease}
+.tab:hover{color:#dbe4f3;background:#1d2738}
+.tab.active{background:linear-gradient(180deg,#2563eb,#3b5bdb);color:#fff;border-color:#3b5bdb;
+  box-shadow:0 -2px 12px rgba(59,91,219,.35)}
+.tabcontent{padding:18px 16px;background:#0f1521;animation:fade .25s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* 键值行 */
+.kv{display:flex;justify-content:space-between;gap:18px;padding:8px 0;
+  border-bottom:1px dashed #212c40;font-size:13.5px}
+.kv:last-child{border-bottom:none}
+.kv span{color:#8f9bb4;flex:0 0 auto}
+.kv b{color:#e8edf6;text-align:right;max-width:64%;font-weight:600;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px}
+.kv b.up,.kv b.dn{font-family:inherit}
+
+/* 支撑/压力 */
+.srblock{display:inline-block;vertical-align:top;width:48%;margin-right:2%}
+.srlabel{font-weight:800;margin-bottom:8px;font-size:14px;letter-spacing:.5px}
+.srlabel[style*="27ae60"],.srlabel.up{color:var(--dn)}
+.srlabel[style*="e74c3c"]{color:var(--up)}
+
+/* 新闻 */
+.news{padding:10px 0;border-bottom:1px dashed #212c40}
+.news:last-child{border-bottom:none}
+.nt{font-size:13.5px;color:#dde4f0;line-height:1.6}
+.nm{font-size:11px;color:#69748c;margin-top:3px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 打法结论 */
+.playact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:7px 18px;border-radius:9px;font-size:15px;margin-bottom:12px;
+  box-shadow:0 4px 14px rgba(239,68,68,.3)}
+.playstr{font-size:14px;line-height:1.75;color:#d2dae8;margin-bottom:12px}
+.note{border-left:3px solid var(--warn)}
+
+/* 深度挖掘卡 */
+.ddcard{background:linear-gradient(135deg,#1a2233,#10151f);border:1px solid #2a3a57;
+  border-radius:14px;margin:14px 0;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+.ddhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid #243049}
+.ddnm{font-size:19px;font-weight:800;color:#fff}
+.ddcode{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.ddstr{font-size:13px;font-weight:700;background:rgba(56,189,248,.12);color:#9fe0ff;
+  padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.ddpx{font-size:15px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.ddbody{display:flex;gap:20px;flex-wrap:wrap}
+.ddcol{flex:1;min-width:230px}
+.ddt{font-weight:800;color:var(--blue);margin-bottom:10px;font-size:13px;letter-spacing:.4px}
+.ddact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:6px 16px;border-radius:9px;font-size:14px;margin-bottom:10px}
+.dds{font-size:13px;line-height:1.7;color:#d2dae8}
+
+/* 三栏网格 */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px;align-items:start}
+@media(max-width:1080px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid3{grid-template-columns:1fr}}
+
+/* 买入建议：Tier 徽章与列 */
+.tier{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:800;color:#0a0d15}
+.tier[style*="3fb950"],.tier.core{background:#3fb950}
+.tier[style*="d29922"],.tier.evt{background:#d29922}
+.tier[style*="f85149"],.tier.avoid{background:#f85149}
+.buy{color:var(--dn)!important;font-weight:800}
+.stop{color:var(--up)!important;font-weight:700}
+.tgt{color:var(--gold)!important;font-weight:700}
+.logic{color:#cfd8e6;line-height:1.55}
+.logic hr{border:none;border-top:1px dashed #2a3a57;margin:7px 0}
+.risk{color:var(--warn);font-size:12px;line-height:1.6}
+
+/* 卖出建议专用 */
+.banner{background:linear-gradient(180deg,rgba(239,68,68,.14),rgba(239,68,68,.07));
+  border:1px solid #7a2b2b;border-radius:12px;padding:14px 16px;margin:16px 0;
+  font-size:13px;line-height:1.8;color:#ffc9c9}
+.banner b{color:#ff8585;font-weight:800}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;margin-bottom:8px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tbl th,.tbl td{border:1px solid #1c2433;padding:9px 9px;text-align:left;vertical-align:top}
+.tbl th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#cdd6e8;font-weight:700}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tag{font-weight:700}
+.t-sell{background:rgba(239,68,68,.22);color:#ff9b9b;border:1px solid #5a2a2a}
+.t-cut{background:rgba(246,183,60,.18);color:#ffd98b;border:1px solid #5a4a1f}
+.t-hold{background:rgba(34,211,166,.16);color:#8be0c4;border:1px solid #1f4a3a}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+.card h3{margin:0 0 7px;font-size:15px;color:#fff;font-weight:800;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card .px{font-size:20px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace}
+.card .why{font-size:12.5px;color:#c2cbd9;line-height:1.65;margin-top:7px}
+.card .why b{color:#fff}
+.act{display:inline-block;margin-top:9px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800;
+  background:rgba(239,68,68,.2);color:#ffb4b4;border:1px solid #5a2a2a}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
 </style></head><body><div class="wrap">
-<h1>📊 股票分析报告门户</h1>
-<div class="s">数据源：同花顺iFinD + 腾讯自选股 + 通达信 | 涨红跌绿 | 杜鑫专属</div>
-<div style="background:linear-gradient(135deg,#1a5276,#2980b9);border-radius:10px;padding:14px 18px;margin-bottom:16px;text-align:center">
-  <div style="font-size:12px;color:#aed6f1;margin-bottom:6px">🌐 外网访问地址（腾讯 CloudStudio）</div>
-  <a href="https://944e2c3991304425ac79b81511fb8422.bj2.agentos-app.net" target="_blank" style="font-size:18px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:0.5px">https://944e2c3991304425ac79b81511fb8422.bj2.agentos-app.net</a>
-  <div style="font-size:11px;color:#d4e6f1;margin-top:5px">点击上方链接直接打开外网门户 · 已验证 HTTP 200 可达</div>
-</div>
-
-<div style="margin:16px 0;padding:14px 16px;background:rgba(46,204,113,0.12);border:1px solid #2ecc71;border-radius:10px">
-<div style="font-size:13px;color:#2ecc71;font-weight:700;margin-bottom:4px">🌐 外网固定访问地址（永久·不休眠）</div>
-<div style="font-size:14px"><a href="https://stock.alvinor.workers.dev" style="color:#7bed9f;word-break:break-all">https://stock.alvinor.workers.dev</a></div>
-<div style="font-size:11px;color:#999;margin-top:4px">本门户由 Gitee 主仓库 → GitHub 镜像 → Cloudflare 发布；更新：2026-08-13 00:13 · 18只Tab深度分析上线</div>
-</div>
-
-<a class="item new" href="./260813_sell_advice.html">
-<div class="t"><span class="badge badge-new">NEW·9:39 卖</span> 卖出建议 · 明确卖出4只(云锗/胜宏/有研/宏辉) + 减持3只 + 持有不卖11只</div>
-<div class="d">2026-08-13 09:39实时快照 | 云锗主力−1.60亿(超大单−1.49亿)利好兑现派发/胜宏10日+55%超买派发/有研60日+71%高位派发 | 工业富联+2.68亿·浪潮+1.97亿·京东方+1.43亿在买(别卖) | 更新：2026-08-13 09:39</div>
-</a>
-
-<a class="item" href="./260813_buy_advice.html">
-<div class="t"><span class="badge badge-new">NEW·8/13 早盘</span> 早盘操作建议 · 哪些能买/多少钱/什么点（核心7+事件5+回避6）</div>
-<div class="d">2026-08-13 09:34实时快照 | 结合盘前基本面(工业富联中报净利237亿创历史新高/云南锗业"天降横财"/立讯8/24审中报) | 每只给买入区间·止损·目标·仓位·时机 | 9:45后回踩支撑买、开盘不追高 | 更新：2026-08-13 09:34</div>
-</a>
-
-<a class="item" href="./260813_all18_tabs.html">
-<div class="t"><span class="badge badge-new">NEW·8/13</span> 18只个股全维度深度分析（Tab标签版）· 12维度含股东/质押解禁/龙虎榜/业绩预告 + 领涨三强深度挖掘</div>
-<div class="d">2026-08-12收盘数据 | 每只12个Tab(打法/支撑压力/资金/技术/基本面/关联板块/评级/动态/股东/质押解禁/龙虎榜/业绩预告) | 顶部「领涨三强深度挖掘」(立讯/禾盛/中微) | 大基金持仓(长电3.2%)/高质押预警(立讯14.07%)/违规处罚(四方) | 更新：2026-08-13 00:23</div>
-</a>
-
-<a class="item" href="./260812_review.html">
-<div class="t">8/12 收盘复盘 · 18只主力强度总表 + 诱多诊断命中率 + 大宗/龙虎榜（暗盘）</div>
-<div class="d">收盘快照16:28 | 科技强/资源弱分化延续 | 校验09:57诱多诊断命中率11/18 | 大宗交易暗盘替代(立讯2.65亿接盘/云锗折价甩货) | 更新：2026-08-12 16:35</div>
-</a>
-
-<a class="item new" href="./260812_live.html">
-<div class="t"><span class="badge badge-new">NEW</span> 8/12 盘中实时快照（10:37）· 主力强度 + 分时暗流</div>
-<div class="d">18只对比09:57诱多诊断演变 | 4只重点票价格-均价偏离率分时SVG | 更新：2026-08-12 10:37</div>
-</a>
-
-<a class="item new" href="./260812_trap.html">
-<div class="t"><span class="badge badge-new">NEW</span> 8/12 诱多诊断（09:57）· 价涨vs主力流向背离</div>
-<div class="d">真买8/诱多4/弱势派发6 拆解红盘真假 | 更新：2026-08-12 10:01</div>
-</a>
-
-<a class="item new" href="./260812_early.html">
-<div class="t"><span class="badge badge-new">NEW</span> 8/12 早盘校准（09:37）· 分化红盘面 + 减仓节奏</div>
-<div class="d">科创50+0.94%强于上证 | 18只主力强度排序 + 红警/橙警减仓节奏校准 | 更新：2026-08-12 09:37</div>
-</a>
-
-<a class="item hl" href="./260812_redlist.html">
-<div class="t"><span class="badge badge-star">★ 红警操作手册</span> 红警 7 只 · 操作建议 + 原因说明 + 工业富联业绩快评</div>
-<div class="d">锡业/株冶/中微/金钼/工业富联/胜宏/四方 | 每只带操作建议与原因 | 工业富联中报净利237亿+96%超预期、8/11盘后披露(非借利好出货) | 更新：2026-08-12 00:15</div>
-</a>
-
-<a class="item hl" href="./260812_all18_ops.html">
-<div class="t"><span class="badge badge-star">★ 18只操作手册</span> 持仓 18 只 · 操作建议 + 原因说明（全量覆盖）</div>
-<div class="d">eval15原15票 + 长电科技 + 京东方A + 中微公司 | 每只带操作建议+原因+主力强度+单笔+PE | 红警7/橙警8/流入3 | 更新：2026-08-12 00:31</div>
-</a>
-
-<a class="item hl" href="./260811_all18_detail.html">
-<div class="t"><span class="badge badge-star">★ 18只详细档案</span> 持仓 18 只 · 打法/基本面/机构/承压/消息/题材 六栏</div>
-<div class="d">eval15原15票 + 长电科技 + 京东方A + 中微公司 | 每只六维度拆解 | 红警7只清单 | 更新：2026-08-11 收盘</div>
-</a>
-
-<a class="item hl" href="./260811_risk_alert.html">
-<div class="t"><span class="badge badge-star">★ 风险预警</span> 高位票集体衰竭·风险预警（红/橙/黄三级）</div>
-<div class="d">主力强度≤-8%衰竭级 + 特大单砸盘识别 | 中微/工业富联/胜宏/锡业/金钼红警 | 更新：2026-08-11 收盘</div>
-</a>
-
-<a class="item new" href="./260811_review.html">
-<div class="t"><span class="badge badge-new">NEW</span> 8/11 收盘复盘（含主力强度+单笔结构）</div>
-<div class="d">20票行情+主力资金+主力强度(主力净额/成交额)+特大/大/中/小单占比 | 高低切换印证 | 更新：2026-08-11 收盘</div>
-</a>
-
-<a class="item new" href="./260811_review16.html">
-<div class="t"><span class="badge badge-new">NEW</span> 16票复盘（eval15原15票 + 长电科技）</div>
-<div class="d">长电科技sh600584加入 | 主力强度+单笔占比 | 6只红警(锡业/株冶/金钼/工业富联/胜宏/四方) | 更新：2026-08-11 收盘</div>
-</a>
-
-<a class="item" href="./260810_verify_advice.html">
-<div class="t"><span class="badge badge-star">★ 最新</span> 8/7建议 vs 8/10实盘 验证对比</div>
-<div class="d">同花顺iFinD + 腾讯自选股双源验证 | 准确率82% | 更新：2026-08-10 18:50</div>
-</a>
-
-<a class="item" href="./260810_review16_0810.html">
-<div class="t">16只复盘·10分钟资金节点</div>
-<div class="d">8/7→8/10对比 + 每只10分钟资金红绿柱 + 命局排名 | 更新：2026-08-10 17:21</div>
-</a>
-
-<a class="item" href="./260807_eval15.html">
-<div class="t">15只标的完整深度评估（统一排名总报告）</div>
-<div class="d">行情PE、主力资金、技术面、机构评级、操作建议 | 更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260807_eval4.html">
-<div class="t">4只票深度评估（立讯/工业富联/禾盛/四方）</div>
-<div class="d">更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260807_eval11.html">
-<div class="t">11只票深度评估（株冶/锌业/有研/通富微电/胜宏 等）</div>
-<div class="d">更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260807_zhongtai_flow.html">
-<div class="t">中泰证券 近5日资金走向</div>
-<div class="d">更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260806_capital_intraday.html">
-<div class="t">主力资金分时复盘（4只）</div>
-<div class="d">更新：2026-08-06</div>
-</a>
-
-<a class="item" href="./260806_strength.html">
-<div class="t">主力力度次日分析</div>
-<div class="d">更新：2026-08-06</div>
-</a>
-
-<a class="item" href="./260807_today.html">
-<div class="t">今日操作建议</div>
-<div class="d">更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260807_tech_sell.html">
-<div class="t">技术面卖点分析</div>
-<div class="d">更新：2026-08-07</div>
-</a>
-
-<a class="item" href="./260807_monitor.html">
-<div class="t">盘中监控快照</div>
-<div class="d">更新：2026-08-07 09:39</div>
-</a>
-
+<div class="topbar"><a class="back" href="index.html">← 返回主页</a><span class="bt">🚀 杜鑫·A股作战仪表盘</span><span class="bs">数据截至 2026-08-13 收盘 · 持仓11 + 关注8</span></div>
+<div class="idxbar"><div class="idx"><span>上证指数</span><b class="dn">3,926.06 -0.52%</b></div><div class="idx"><span>深证成指</span><b class="dn">14,291.60 -0.85%</b></div><div class="idx"><span>创业板指</span><b class="dn">3,585.58 -0.46%</b></div></div>
+<div class="sec-title">大盘环境画像</div><div class="envgrid"><div class="env"><div class="envk">市场情绪</div><div class="envv" style="color:#e74c3c">情绪狂热</div><div class="envs">涨停75只·涨股比74%</div></div><div class="env"><div class="envk">个股宽度</div><div class="envv" style="color:#27ae60">普涨</div><div class="envs">上涨4128/下跌1280</div></div><div class="env"><div class="envk">板块宽度</div><div class="envv" style="color:#27ae60">全面开花</div><div class="envs">上涨板块>80%</div></div><div class="env"><div class="envk">技术面</div><div class="envv" style="color:#e67e22">极强</div><div class="envs">MACD金叉向上发散</div></div><div class="env"><div class="envk">估值</div><div class="envv" style="color:#e74c3c">高估强势</div><div class="envs">PE分位≥90%</div></div><div class="env"><div class="envk">短期趋势</div><div class="envv" style="color:#27ae60">温和上涨</div><div class="envs">均线多头排列</div></div><div class="env"><div class="envk">中长期趋势</div><div class="envv" style="color:#f39c12">震荡</div><div class="envs">短期弱于中期</div></div><div class="env"><div class="envk">风格</div><div class="envv" style="color:#7aa2f7">价值占优</div><div class="envs">价值>成长+2~5%</div></div></div>
+<div class="sec-title">今日操作总览（买 / 持 / 卖）</div><div class="ovgrid"><div class="ovcol"><div class="ovh" style="background:rgba(231,76,60,.15);color:#ff9b8f">买向（3）</div><div class="ovitem"><span class="ovn">禾盛新材</span><span class="ovp dn">-0.24%</span><span class="ovs up">+7.28%</span></div><div class="ovitem"><span class="ovn">四方股份</span><span class="ovp up">+2.85%</span><span class="ovs up">+7.75%</span></div><div class="ovitem"><span class="ovn">浪潮信息</span><span class="ovp up">+5.91%</span><span class="ovs up">+9.42%</span></div></div>
+<div class="ovcol"><div class="ovh" style="background:rgba(39,174,96,.15);color:#7ee2a0">持有/观望（3）</div><div class="ovitem"><span class="ovn">工业富联</span><span class="ovp dn">-0.44%</span><span class="ovs up">+2.23%</span></div><div class="ovitem"><span class="ovn">通富微电</span><span class="ovp dn">-0.67%</span><span class="ovs up">+1.36%</span></div><div class="ovitem"><span class="ovn">长电科技</span><span class="ovp up">+0.03%</span><span class="ovs up">+1.16%</span></div></div>
+<div class="ovcol"><div class="ovh" style="background:rgba(230,126,34,.15);color:#ffc08a">卖向/减仓（13）</div><div class="ovitem"><span class="ovn">立讯精密</span><span class="ovp dn">-2.14%</span><span class="ovs dn">-12.00%</span></div><div class="ovitem"><span class="ovn">株冶集团</span><span class="ovp dn">-3.34%</span><span class="ovs dn">-14.55%</span></div><div class="ovitem"><span class="ovn">金钼股份</span><span class="ovp dn">-2.82%</span><span class="ovs dn">-14.99%</span></div><div class="ovitem"><span class="ovn">长鑫科技</span><span class="ovp dn">-1.33%</span><span class="ovs dn">-1.11%</span></div><div class="ovitem"><span class="ovn">宏辉果蔬</span><span class="ovp dn">-3.67%</span><span class="ovs dn">-12.11%</span></div><div class="ovitem"><span class="ovn">锌业股份</span><span class="ovp dn">-3.27%</span><span class="ovs dn">-20.35%</span></div><div class="ovitem"><span class="ovn">中微公司</span><span class="ovp dn">-2.57%</span><span class="ovs dn">-2.94%</span></div><div class="ovitem"><span class="ovn">有研新材</span><span class="ovp dn">-4.72%</span><span class="ovs dn">-11.52%</span></div><div class="ovitem"><span class="ovn">胜宏科技</span><span class="ovp dn">-2.42%</span><span class="ovs dn">-6.69%</span></div><div class="ovitem"><span class="ovn">锡业股份</span><span class="ovp dn">-3.80%</span><span class="ovs dn">-18.49%</span></div><div class="ovitem"><span class="ovn">同飞股份</span><span class="ovp dn">-0.70%</span><span class="ovs dn">-2.18%</span></div><div class="ovitem"><span class="ovn">云南锗业</span><span class="ovp dn">-5.36%</span><span class="ovs dn">-12.63%</span></div><div class="ovitem"><span class="ovn">京东方Ａ</span><span class="ovp dn">-0.84%</span><span class="ovs dn">-3.71%</span></div></div></div>
+<div class="sec-title">持仓（11只）</div><div class="grid3"><a class="scard" href="260813_all_tabs.html#card-sh601126">
+<span class="sname">四方股份</span><span class="scode">sh601126</span>
+<span class="spx up">47.22 +2.85%</span>
+<span class="sstr up">主力强度 +7.75%</span>
+<span class="sact" style="color:#e74c3c">持有/逢回踩关注</span></a><a class="scard" href="260813_all_tabs.html#card-sz002290">
+<span class="sname">禾盛新材</span><span class="scode">sz002290</span>
+<span class="spx dn">62.21 -0.24%</span>
+<span class="sstr up">主力强度 +7.28%</span>
+<span class="sact" style="color:#e74c3c">持有/逢回踩关注</span></a><a class="scard" href="260813_all_tabs.html#card-sh601138">
+<span class="sname">工业富联</span><span class="scode">sh601138</span>
+<span class="spx dn">65.31 -0.44%</span>
+<span class="sstr up">主力强度 +2.23%</span>
+<span class="sact" style="color:#f39c12">持有/观望</span></a><a class="scard" href="260813_all_tabs.html#card-sz002156">
+<span class="sname">通富微电</span><span class="scode">sz002156</span>
+<span class="spx dn">62.44 -0.67%</span>
+<span class="sstr up">主力强度 +1.36%</span>
+<span class="sact" style="color:#f39c12">持有/观望</span></a><a class="scard" href="260813_all_tabs.html#card-sh688825">
+<span class="sname">长鑫科技</span><span class="scode">sh688825</span>
+<span class="spx dn">52.81 -1.33%</span>
+<span class="sstr dn">主力强度 -1.11%</span>
+<span class="sact" style="color:#e67e22">观望/轻仓</span></a><a class="scard" href="260813_all_tabs.html#card-sh688012">
+<span class="sname">中微公司</span><span class="scode">sh688012</span>
+<span class="spx dn">371.15 -2.57%</span>
+<span class="sstr dn">主力强度 -2.94%</span>
+<span class="sact" style="color:#e67e22">观望/轻仓</span></a><a class="scard" href="260813_all_tabs.html#card-sz002475">
+<span class="sname">立讯精密</span><span class="scode">sz002475</span>
+<span class="spx dn">56.12 -2.14%</span>
+<span class="sstr dn">主力强度 -12.00%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sh603336">
+<span class="sname">宏辉果蔬</span><span class="scode">sh603336</span>
+<span class="spx dn">9.71 -3.67%</span>
+<span class="sstr dn">主力强度 -12.11%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sh600961">
+<span class="sname">株冶集团</span><span class="scode">sh600961</span>
+<span class="spx dn">28.32 -3.34%</span>
+<span class="sstr dn">主力强度 -14.55%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sh601958">
+<span class="sname">金钼股份</span><span class="scode">sh601958</span>
+<span class="spx dn">22.44 -2.82%</span>
+<span class="sstr dn">主力强度 -14.99%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sz000751">
+<span class="sname">锌业股份</span><span class="scode">sz000751</span>
+<span class="spx dn">5.03 -3.27%</span>
+<span class="sstr dn">主力强度 -20.35%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a></div>
+<div class="sec-title">重点关注（8只）</div><div class="grid3"><a class="scard" href="260813_all_tabs.html#card-sz000977">
+<span class="sname">浪潮信息</span><span class="scode">sz000977</span>
+<span class="spx up">79.45 +5.91%</span>
+<span class="sstr up">主力强度 +9.42%</span>
+<span class="sact" style="color:#e74c3c">持有/逢回踩关注</span></a><a class="scard" href="260813_all_tabs.html#card-sh600584">
+<span class="sname">长电科技</span><span class="scode">sh600584</span>
+<span class="spx up">78.20 +0.03%</span>
+<span class="sstr up">主力强度 +1.16%</span>
+<span class="sact" style="color:#f39c12">持有/观望</span></a><a class="scard" href="260813_all_tabs.html#card-sz300990">
+<span class="sname">同飞股份</span><span class="scode">sz300990</span>
+<span class="spx dn">73.36 -0.70%</span>
+<span class="sstr dn">主力强度 -2.18%</span>
+<span class="sact" style="color:#e67e22">观望/轻仓</span></a><a class="scard" href="260813_all_tabs.html#card-sz000725">
+<span class="sname">京东方Ａ</span><span class="scode">sz000725</span>
+<span class="spx dn">5.88 -0.84%</span>
+<span class="sstr dn">主力强度 -3.71%</span>
+<span class="sact" style="color:#e67e22">观望/轻仓</span></a><a class="scard" href="260813_all_tabs.html#card-sz300476">
+<span class="sname">胜宏科技</span><span class="scode">sz300476</span>
+<span class="spx dn">272.63 -2.42%</span>
+<span class="sstr dn">主力强度 -6.69%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sh600206">
+<span class="sname">有研新材</span><span class="scode">sh600206</span>
+<span class="spx dn">50.45 -4.72%</span>
+<span class="sstr dn">主力强度 -11.52%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sz002428">
+<span class="sname">云南锗业</span><span class="scode">sz002428</span>
+<span class="spx dn">100.30 -5.36%</span>
+<span class="sstr dn">主力强度 -12.63%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a><a class="scard" href="260813_all_tabs.html#card-sz000960">
+<span class="sname">锡业股份</span><span class="scode">sz000960</span>
+<span class="spx dn">37.75 -3.80%</span>
+<span class="sstr dn">主力强度 -18.49%</span>
+<span class="sact" style="color:#c0392b">减仓/回避</span></a></div>
+<div class="sec-title">报告导航 & 历史</div><div class="navwrap"><a class="navbtn" href="260813_morning.html">🌅 早盘作战卡</a><a class="navbtn" href="260813_intra.html">🔍 盘中诊断</a><a class="navbtn" href="260813_review.html">🌆 收盘复盘</a><a class="navbtn" href="260813_buy_advice.html">🟢 买点建议</a><a class="navbtn" href="260813_sell_advice.html">🔴 卖点/减仓</a><a class="navbtn" href="260813_all_tabs.html">📑 全维档案</a><a class="navbtn" href="history.html">📅 历史日历</a></div>
+<div class="sub" style="margin-top:20px">分析仅供参考，非投资建议。数据来源：westock（腾讯自选股/通达信）MCP 实拉。</div>
 </div></body></html>

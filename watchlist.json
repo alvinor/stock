@@ -1,0 +1,116 @@
+[
+  {
+    "code": "sz002475",
+    "name": "立讯精密",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh601138",
+    "name": "工业富联",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sz002290",
+    "name": "禾盛新材",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh600961",
+    "name": "株冶集团",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh601958",
+    "name": "金钼股份",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh688825",
+    "name": "长鑫科技",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh603336",
+    "name": "宏辉果蔬",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh601126",
+    "name": "四方股份",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sz002156",
+    "name": "通富微电",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sz000751",
+    "name": "锌业股份",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh688012",
+    "name": "中微公司",
+    "group": "holding",
+    "weight": null
+  },
+  {
+    "code": "sh600206",
+    "name": "有研新材",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz300476",
+    "name": "胜宏科技",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz000960",
+    "name": "锡业股份",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz000977",
+    "name": "浪潮信息",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz300990",
+    "name": "同飞股份",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz002428",
+    "name": "云南锗业",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sz000725",
+    "name": "京东方Ａ",
+    "group": "focus",
+    "weight": null
+  },
+  {
+    "code": "sh600584",
+    "name": "长电科技",
+    "group": "focus",
+    "weight": null
+  }
+]

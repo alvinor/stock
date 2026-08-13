@@ -1,123 +1,227 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>260813 杜鑫·卖出建议(09:39快照)</title>
-<style>
-*{{box-sizing:border-box}}
-body{{margin:0;background:#0e1015;color:#e6e6e6;font-family:-apple-system,"Microsoft YaHei",sans-serif;padding:18px}}
-h1{{font-size:20px;color:#fff;margin:0 0 4px}}
-.sub{{font-size:12px;color:#9aa0aa;margin-bottom:14px}}
-.banner{{background:#2a1414;border:1px solid #5a2a2a;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:13px;line-height:1.7;color:#ffb4b4}}
-.banner b{{color:#ff6b6b}}
-.sec{{font-size:15px;color:#fff;margin:22px 0 10px;padding-left:9px;border-left:4px solid #ff6b6b}}
-.tbl{{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:6px}}
-.tbl th,.tbl td{{border:1px solid #252a36;padding:7px 8px;text-align:left;vertical-align:top}}
-.tbl th{{background:#1c2030;color:#cdd3df;font-weight:600}}
-.tbl tr:nth-child(even) td{{background:#14171f}}
-.up{{color:#ff5b5b}} .dn{{color:#2ecc71}} .flat{{color:#bbb}}
-.tag{{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;font-weight:700}}
-.t-sell{{background:#5a1f1f;color:#ff9b9b}}
-.t-cut{{background:#5a4a1f;color:#ffd98b}}
-.t-hold{{background:#1f3a2a;color:#8be0a8}}
-.note{{font-size:12px;color:#9aa0aa;line-height:1.7;background:#14171f;border-radius:8px;padding:10px 12px;margin:8px 0}}
-.cards{{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}}
-.card{{background:#14171f;border:1px solid #2a2f3c;border-radius:10px;padding:12px}}
-.card h3{{margin:0 0 6px;font-size:14px;color:#fff}}
-.card .px{{font-size:20px;font-weight:700}}
-.card .why{{font-size:12px;color:#c2c8d2;line-height:1.6;margin-top:6px}}
-.act{{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;background:#5a1f1f;color:#ffb4b4}}
-@media(max-width:760px){{.cards{{grid-template-columns:1fr}}}}
-</style>
-</head>
-<body>
-<h1>📤 杜鑫·8/13 卖出建议（09:39 实时快照）</h1>
-<div class="sub">数据时间 2026-08-13 09:39｜A股已开盘约9分钟｜结合盘前基本面 + 实时主力流向判定"该卖/该留"</div>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>260813 🔴 卖点/减仓建议</title><style>
+:root{
+  --bg:#0a0d15; --bg2:#0e1320; --card:#141b29; --card2:#10151f;
+  --line:#23304a; --line2:#2c3a57; --txt:#e8edf6; --sub:#9aa6bd;
+  --blue:#7dd3fc; --violet:#a78bfa; --pink:#f0abfc;
+  --up:#ff5a5f; --dn:#22d3a6; --warn:#f6b73c; --gold:#e9c46a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(56,189,248,.10), transparent 60%),
+    radial-gradient(900px 480px at -5% 0%, rgba(129,140,248,.10), transparent 55%),
+    radial-gradient(700px 400px at 50% 120%, rgba(240,171,252,.05), transparent 60%),
+    var(--bg);
+  color:var(--txt); padding:26px 22px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1200px;margin:0 auto}
+h1{
+  font-size:25px; font-weight:800; letter-spacing:.3px; margin-bottom:6px; line-height:1.25;
+  background:linear-gradient(92deg,#7dd3fc,#a78bfa 58%,#f0abfc);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.sub{color:var(--sub);font-size:12.5px;margin-bottom:22px;line-height:1.75}
+.sub b{color:#cdd6e8}
 
-<div class="banner">
-⚠️ <b>盘面定性：开盘第一波冲高段，分化剧烈。</b><br>
-· 强流入（主力在买）：<b>工业富联 +2.68亿</b>、<b>浪潮信息 +1.97亿</b>、<b>京东方A +1.43亿</b> —— 这些是修复/加仓方向，<b>别卖</b>。<br>
-· 强流出（主力在派发）：<b>云南锗业 −1.60亿（超大单−1.49亿）</b>、<b>胜宏科技 −4168万（超大单−3804万）</b>、<b>有研新材 −6848万</b>、<b>宏辉果蔬 −544万</b> —— <b>这4只今天一开盘就在出货，现在就是卖点</b>。<br>
-· 云锗 PE 3589 极度透支，昨日"天降横财"利好今早被资金借机兑现，典型的"利好出尽派发"。
-</div>
+/* 涨跌色（A股：红涨绿跌） */
+.up{color:var(--up)!important;font-weight:600}
+.dn,.down{color:var(--dn)!important;font-weight:600}
+.flat{color:#9aa6bd!important}
 
-<div class="sec">一、明确卖出（现在市价清 / 减，别等反弹）</div>
-<table class="tbl">
-<thead><tr><th>标的</th><th>现价</th><th>今日</th><th>主力净流入</th><th>主力强度</th><th>卖出动作</th><th>逻辑</th></tr></thead>
-<tbody>
-<tr>
-<td><b>云南锗业</b><br>sz002428</td>
-<td class="dn">104.70</td>
-<td class="dn">−1.21%</td>
-<td class="dn">−1.60亿</td>
-<td class="dn">−7.85%</td>
-<td><span class="tag t-sell">清仓</span></td>
-<td>超大单净流出1.49亿；PE 3589 透支；昨日"天降横财"利好今早兑现派发。反弹即逃命，104.7 附近直接出。</td>
-</tr>
-<tr>
-<td><b>胜宏科技</b><br>sz300476</td>
-<td class="up">280.79</td>
-<td class="up">+0.50%</td>
-<td class="dn">−4168万</td>
-<td class="dn">−1.84%</td>
-<td><span class="tag t-sell">减/清</span></td>
-<td>10日累涨+55%、KDJ超买；主力+超大单双流出（−3804万），价涨量派发。280 附近减仓，破275走。</td>
-</tr>
-<tr>
-<td><b>有研新材</b><br>sh600206</td>
-<td class="dn">52.43</td>
-<td class="dn">−0.98%</td>
-<td class="dn">−6848万</td>
-<td class="dn">−6.65%</td>
-<td><span class="tag t-sell">清仓</span></td>
-<td>60日累涨+71%高位；昨日已现派发，今早主力续流出。52.4 附近清，跌破51.8（今日低）加速。</td>
-</tr>
-<tr>
-<td><b>宏辉果蔬</b><br>sh603336</td>
-<td class="dn">9.88</td>
-<td class="dn">−1.98%</td>
-<td class="dn">−544万</td>
-<td class="dn">−10.7%</td>
-<td><span class="tag t-sell">清仓</span></td>
-<td>非主线题材，量比5.85异常但主力流出、价跌。9.88 附近清（若持有）。</td>
-</tr>
-</tbody>
-</table>
+/* 章节标题 */
+.sec,.sec-title{
+  font-size:16.5px;font-weight:700;color:#fff;margin:30px 0 12px;padding-left:12px;
+  border-left:4px solid transparent;
+  border-image:linear-gradient(180deg,#38bdf8,#818cf8) 1;
+  letter-spacing:.3px;
+}
+.foot{margin-top:26px;font-size:11.5px;color:#6b7790;line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 
-<div class="sec">二、减持 / 弱（轻仓可降，非紧急）</div>
-<table class="tbl">
-<thead><tr><th>标的</th><th>现价</th><th>今日</th><th>主力净流入</th><th>动作</th><th>逻辑</th></tr></thead>
-<tbody>
-<tr><td><b>金钼股份</b><br>sh601958</td><td>23.25</td><td class="up">+0.69%</td><td class="flat">+72万(平)</td><td><span class="tag t-cut">减至底仓</span></td><td>涨幅过大+机构目标价低于现价；量能极弱，反弹减。</td></tr>
-<tr><td><b>锌业股份</b><br>sz000751</td><td>5.20</td><td class="flat">0.00%</td><td class="dn">−160万</td><td><span class="tag t-cut">减</span></td><td>资源分化，微流出；5.20 横盘无动能，降仓换强。</td></tr>
-<tr><td><b>株冶集团</b><br>sh600961</td><td>29.71</td><td class="up">+1.40%</td><td class="up">+1901万</td><td><span class="tag t-cut">可观望</span></td><td>今日小幅流入，暂不止跌卖；但资源整体分化，冲高29.9附近可减。</td></tr>
-</tbody>
-</table>
+/* 通用卡片 / 盒子 */
+.card,.box{
+  background:linear-gradient(180deg,var(--card),var(--card2));
+  border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 6px 22px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.03);
+  padding:14px 16px;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.box:hover{border-color:var(--line2);box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
 
-<div class="sec">三、持有 / 不卖（这些别动，部分还是买点）</div>
-<div class="cards">
-<div class="card"><h3>工业富联 67.48 <span class="up">+2.87%</span></h3><div class="why">主力+2.68亿（全市场最强之一）。中报净利237亿创历史新高，昨日−8.25%错杀修复中。<b>持有/可加</b>，回踩65.5–66.8补。</div></div>
-<div class="card"><h3>浪潮信息 78.08 <span class="up">+4.08%</span></h3><div class="why">主力+1.97亿，AI算力主线放量。持有，不卖。</div></div>
-<div class="card"><h3>京东方A 6.00 <span class="up">+1.18%</span></h3><div class="why">主力+1.43亿，面板回暖+国际标准。持有/可低吸。</div></div>
-<div class="card"><h3>立讯精密 57.65 <span class="up">+0.52%</span></h3><div class="why">主力微流入+10.6亿（大单），8/24审中报催化。持有，回踩56.5–58买。</div></div>
-<div class="card"><h3>中微公司 383.85 <span class="up">+0.76%</span></h3><div class="why">今日微流出−1045万但价稳，半导体设备核心。持有，366–375买点。</div></div>
-<div class="card"><h3>长电科技 79.29 <span class="up">+1.42%</span></h3><div class="why">大基金持仓3.2%，今日主力−4708万（短线波动），中期逻辑在。持有，76–78.5买。</div></div>
-<div class="card"><h3>通富微电 63.55 <span class="up">+1.10%</span></h3><div class="why">主力近平−270万，先进封装景气。持有，62–63.5买。</div></div>
-<div class="card"><h3>禾盛新材 64.16 <span class="up">+2.89%</span></h3><div class="why">主力+147万平，中报+40%。持有，60–62回踩买。</div></div>
-<div class="card"><h3>锡业股份 39.38 <span class="up">+0.36%</span></h3><div class="why">主力−498万微流出，锡钨供需紧。持有观望，37–38.5买。</div></div>
-<div class="card"><h3>同飞股份 74.95 <span class="up">+1.45%</span></h3><div class="why">主力+766万流入，液冷景气。持有，73–75买。</div></div>
-<div class="card"><h3>四方股份 47.46 <span class="up">+3.38%</span></h3><div class="why">主力+1038万流入，海外中标。持有（留意此前违规处罚风险），44–45买。</div></div>
-</div>
+/* KPI 盒 */
+.box h2{font-size:14px;margin:0 0 8px;color:var(--blue);font-weight:700;letter-spacing:.4px}
+.kpi{font-size:27px;font-weight:800;line-height:1.1;letter-spacing:.5px}
+.kpi.up{color:var(--up)} .kpi.down{color:var(--dn)}
+.note{font-size:12.5px;color:#b9c3d6;line-height:1.7;background:rgba(255,255,255,.025);
+  border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:0 9px 9px 0;padding:10px 13px;margin-top:8px}
 
-<div class="sec">四、卖出时机纪律</div>
-<div class="note">
-1. <b>云锗 / 胜宏 / 有研 / 宏辉：现在（09:39）就市价卖</b>——它们正处于开盘派发段，反弹是出逃机会不是加仓机会，越等越被动。<br>
-2. 卖出后资金<b>不要立刻追高接回</b>强势票（工业富联/浪潮已冲高+2~4%），等 9:45–10:30 第一波回落再低吸核心买点。<br>
-3. 总仓控制：卖出派发票后落袋为安，整体仓位若仍高可降至 60% 以内观望。<br>
-4. 单票止损纪律不变：跌破买入报告里的止损价（云锗95/胜宏275/有研51.8）必须走，不抱幻想。
-</div>
+/* 标签 / 主题胶囊 */
+.tag{display:inline-block;background:linear-gradient(180deg,#1d2738,#161d2b);color:#a9c7ff;
+  padding:4px 11px;border-radius:20px;font-size:12px;margin:3px 4px 3px 0;border:1px solid #243049}
+.themes{line-height:2.2}
+.tags{margin:4px 0}
 
-<div class="sub" style="margin-top:18px">说明：本报告基于 2026-08-13 09:39 实时行情与主力资金流向，结合此前基本面分析给出"卖/留"框架。分析仅供参考，<b>我不能代您下单</b>，请按自身持仓对照执行；如需按具体持仓给精确卖出数量，请告诉我您各票的成本与股数。</div>
-</body>
-</html>
+/* 表格 */
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:13px;
+  background:linear-gradient(180deg,#121826,#0f141f);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
+th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#aab6cc;font-weight:700;
+  text-align:left;padding:11px 10px;border-bottom:1px solid var(--line2);white-space:nowrap;font-size:12.5px;letter-spacing:.3px}
+td{padding:10px;border-bottom:1px solid #1a2233;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:rgba(255,255,255,.018)}
+tbody tr:hover td{background:rgba(56,189,248,.07)}
+td.c{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+td.n{font-weight:700;color:#fff}
+td.num{text-align:right;font-family:'JetBrains Mono',Consolas,monospace;white-space:nowrap}
+.code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 个股大卡（Tab版） */
+.card{overflow:hidden;padding:0}
+.cardhead{display:flex;align-items:center;gap:12px;padding:15px 18px;flex-wrap:wrap;
+  background:linear-gradient(90deg,#1b2436,#141b29);border-bottom:1px solid var(--line)}
+.cardhead .code{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.cardhead .nm{font-size:18px;font-weight:800;color:#fff;letter-spacing:.4px}
+.cardhead .px{font-size:16px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.cardhead .str{font-size:12.5px;font-weight:700;background:rgba(56,189,248,.12);
+  color:#9fe0ff;padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.tabs{display:flex;flex-wrap:wrap;gap:5px;padding:11px 12px 0;background:#0f1521;
+  border-bottom:1px solid var(--line)}
+.tab{background:#18202f;color:#9aa6bd;border:1px solid #222c40;border-bottom:none;
+  padding:8px 15px;border-radius:9px 9px 0 0;cursor:pointer;font-size:13px;font-weight:600;
+  transition:all .15s ease}
+.tab:hover{color:#dbe4f3;background:#1d2738}
+.tab.active{background:linear-gradient(180deg,#2563eb,#3b5bdb);color:#fff;border-color:#3b5bdb;
+  box-shadow:0 -2px 12px rgba(59,91,219,.35)}
+.tabcontent{padding:18px 16px;background:#0f1521;animation:fade .25s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* 键值行 */
+.kv{display:flex;justify-content:space-between;gap:18px;padding:8px 0;
+  border-bottom:1px dashed #212c40;font-size:13.5px}
+.kv:last-child{border-bottom:none}
+.kv span{color:#8f9bb4;flex:0 0 auto}
+.kv b{color:#e8edf6;text-align:right;max-width:64%;font-weight:600;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px}
+.kv b.up,.kv b.dn{font-family:inherit}
+
+/* 支撑/压力 */
+.srblock{display:inline-block;vertical-align:top;width:48%;margin-right:2%}
+.srlabel{font-weight:800;margin-bottom:8px;font-size:14px;letter-spacing:.5px}
+.srlabel[style*="27ae60"],.srlabel.up{color:var(--dn)}
+.srlabel[style*="e74c3c"]{color:var(--up)}
+
+/* 新闻 */
+.news{padding:10px 0;border-bottom:1px dashed #212c40}
+.news:last-child{border-bottom:none}
+.nt{font-size:13.5px;color:#dde4f0;line-height:1.6}
+.nm{font-size:11px;color:#69748c;margin-top:3px;font-family:'JetBrains Mono',Consolas,monospace}
+
+/* 打法结论 */
+.playact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:7px 18px;border-radius:9px;font-size:15px;margin-bottom:12px;
+  box-shadow:0 4px 14px rgba(239,68,68,.3)}
+.playstr{font-size:14px;line-height:1.75;color:#d2dae8;margin-bottom:12px}
+.note{border-left:3px solid var(--warn)}
+
+/* 深度挖掘卡 */
+.ddcard{background:linear-gradient(135deg,#1a2233,#10151f);border:1px solid #2a3a57;
+  border-radius:14px;margin:14px 0;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+.ddhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px solid #243049}
+.ddnm{font-size:19px;font-weight:800;color:#fff}
+.ddcode{color:var(--blue);font-size:12px;font-family:'JetBrains Mono',Consolas,monospace}
+.ddstr{font-size:13px;font-weight:700;background:rgba(56,189,248,.12);color:#9fe0ff;
+  padding:4px 12px;border-radius:20px;border:1px solid #294a6b}
+.ddpx{font-size:15px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace;margin-left:auto}
+.ddbody{display:flex;gap:20px;flex-wrap:wrap}
+.ddcol{flex:1;min-width:230px}
+.ddt{font-weight:800;color:var(--blue);margin-bottom:10px;font-size:13px;letter-spacing:.4px}
+.ddact{display:inline-block;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;
+  font-weight:800;padding:6px 16px;border-radius:9px;font-size:14px;margin-bottom:10px}
+.dds{font-size:13px;line-height:1.7;color:#d2dae8}
+
+/* 三栏网格 */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px;align-items:start}
+@media(max-width:1080px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.grid3{grid-template-columns:1fr}}
+
+/* 买入建议：Tier 徽章与列 */
+.tier{display:inline-block;padding:2px 9px;border-radius:7px;font-size:11px;font-weight:800;color:#0a0d15}
+.tier[style*="3fb950"],.tier.core{background:#3fb950}
+.tier[style*="d29922"],.tier.evt{background:#d29922}
+.tier[style*="f85149"],.tier.avoid{background:#f85149}
+.buy{color:var(--dn)!important;font-weight:800}
+.stop{color:var(--up)!important;font-weight:700}
+.tgt{color:var(--gold)!important;font-weight:700}
+.logic{color:#cfd8e6;line-height:1.55}
+.logic hr{border:none;border-top:1px dashed #2a3a57;margin:7px 0}
+.risk{color:var(--warn);font-size:12px;line-height:1.6}
+
+/* 卖出建议专用 */
+.banner{background:linear-gradient(180deg,rgba(239,68,68,.14),rgba(239,68,68,.07));
+  border:1px solid #7a2b2b;border-radius:12px;padding:14px 16px;margin:16px 0;
+  font-size:13px;line-height:1.8;color:#ffc9c9}
+.banner b{color:#ff8585;font-weight:800}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;margin-bottom:8px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tbl th,.tbl td{border:1px solid #1c2433;padding:9px 9px;text-align:left;vertical-align:top}
+.tbl th{background:linear-gradient(180deg,#1a2336,#151c2b);color:#cdd6e8;font-weight:700}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tag{font-weight:700}
+.t-sell{background:rgba(239,68,68,.22);color:#ff9b9b;border:1px solid #5a2a2a}
+.t-cut{background:rgba(246,183,60,.18);color:#ffd98b;border:1px solid #5a4a1f}
+.t-hold{background:rgba(34,211,166,.16);color:#8be0c4;border:1px solid #1f4a3a}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+.card h3{margin:0 0 7px;font-size:15px;color:#fff;font-weight:800;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card .px{font-size:20px;font-weight:800;font-family:'JetBrains Mono',Consolas,monospace}
+.card .why{font-size:12.5px;color:#c2cbd9;line-height:1.65;margin-top:7px}
+.card .why b{color:#fff}
+.act{display:inline-block;margin-top:9px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:800;
+  background:rgba(239,68,68,.2);color:#ffb4b4;border:1px solid #5a2a2a}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<div class="topbar"><a class="back" href="index.html">← 返回主页</a><span class="bt">🔴 卖点/减仓建议（2026-08-13）</span><span class="bs">数据截至 2026-08-13 收盘</span></div>
+<div class="sub">依据当日主力强度与超买状态筛选。涨红跌绿，非投资建议。</div>
+<div class="sec-title">🔴 卖点/减仓建议清单</div>
+<table><thead><tr><th>代码</th><th>名称</th><th>现价/涨跌</th><th>主力强度</th><th>操作</th><th>逻辑</th></tr></thead><tbody><tr><td>sz002475</td><td class="n">立讯精密</td>
+<td class="num dn">56.12 -2.14%</td>
+<td class="num dn">-12.00%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh600961</td><td class="n">株冶集团</td>
+<td class="num dn">28.32 -3.34%</td>
+<td class="num dn">-14.55%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh601958</td><td class="n">金钼股份</td>
+<td class="num dn">22.44 -2.82%</td>
+<td class="num dn">-14.99%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh688825</td><td class="n">长鑫科技</td>
+<td class="num dn">52.81 -1.33%</td>
+<td class="num dn">-1.11%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh603336</td><td class="n">宏辉果蔬</td>
+<td class="num dn">9.71 -3.67%</td>
+<td class="num dn">-12.11%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz000751</td><td class="n">锌业股份</td>
+<td class="num dn">5.03 -3.27%</td>
+<td class="num dn">-20.35%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh688012</td><td class="n">中微公司</td>
+<td class="num dn">371.15 -2.57%</td>
+<td class="num dn">-2.94%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sh600206</td><td class="n">有研新材</td>
+<td class="num dn">50.45 -4.72%</td>
+<td class="num dn">-11.52%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz300476</td><td class="n">胜宏科技</td>
+<td class="num dn">272.63 -2.42%</td>
+<td class="num dn">-6.69%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz000960</td><td class="n">锡业股份</td>
+<td class="num dn">37.75 -3.80%</td>
+<td class="num dn">-18.49%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz300990</td><td class="n">同飞股份</td>
+<td class="num dn">73.36 -0.70%</td>
+<td class="num dn">-2.18%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz002428</td><td class="n">云南锗业</td>
+<td class="num dn">100.30 -5.36%</td>
+<td class="num dn">-12.63%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr><tr><td>sz000725</td><td class="n">京东方Ａ</td>
+<td class="num dn">5.88 -0.84%</td>
+<td class="num dn">-3.71%</td>
+<td style="color:#e74c3c">减仓/回避</td><td>主力净流出，派发特征，反弹即减</td></tr></tbody></table>
+<div class="sub" style="margin-top:18px">筛选规则：买点=主力强度≥5%且未超买（强买），或强度≥0（回踩关注）；卖点=主力净流出（减仓），或 KDJ_K>85/RSI_2>90 超买（防回撤）。</div>
+</div></body></html>
